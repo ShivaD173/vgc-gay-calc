@@ -4814,6 +4814,7 @@ var GAY_PATCH = {
     'Misty Explosion': { bp: 150 },
     'Explosion': { bp: 350 },
     'Self-Destruct': { bp: 275 },
+    'Round': { bp: 70 },
     'Vise Grip': { bp: 70 },
     'Grassy Glide': { bp: 60 },
     'Tri Attack': { bp: 30, multihit: 3 },

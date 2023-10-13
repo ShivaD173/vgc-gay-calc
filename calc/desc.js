@@ -453,7 +453,7 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
     }
     else if (defender.hasStatus('brn')) {
         if (defender.hasAbility('Heatproof')) {
-            damage -= Math.floor(defender.maxHP() / (gen.num > 6 ? 32 : 16));
+            damage -= Math.floor(defender.maxHP() / (gen.num > 6 ? 64 : 16));
             texts.push('reduced burn damage');
         }
         else if (!defender.hasAbility('Magic Guard')) {
