@@ -10741,9 +10741,9 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 75,
-            "at": 110,
+            "at": 105,
             "df": 94,
-            "sa": 35,
+            "sa": 40,
             "sd": 110,
             "sp": 76
         },
@@ -10928,11 +10928,11 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 80,
-            "at": 115,
+            "at": 120,
             "df": 105,
             "sa": 30,
             "sd": 70,
-            "sp": 100
+            "sp": 105
         },
         "abilities": {
             "0": "Intimidate"
@@ -10945,11 +10945,11 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 80,
-            "at": 115,
+            "at": 120,
             "df": 105,
             "sa": 30,
             "sd": 70,
-            "sp": 100
+            "sp": 105
         },
         "abilities": {
             "0": "Intimidate"
@@ -11047,10 +11047,10 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 70,
-            "at": 65,
-            "df": 60,
+            "at": 60,
+            "df": 100,
             "sa": 115,
-            "sd": 100,
+            "sd": 65,
             "sp": 135
         },
         "abilities": {
@@ -11369,12 +11369,12 @@ var GAY_PATCH = {
             "Poison"
         ],
         "bs": {
-            "hp": 90,
+            "hp": 100,
             "at": 110,
             "df": 90,
             "sa": 80,
             "sd": 90,
-            "sp": 50
+            "sp": 70
         },
         "abilities": {
             "0": "Swarm"
@@ -11998,11 +11998,11 @@ var GAY_PATCH = {
             ""
         ],
         "bs": {
-            "hp": 210,
+            "hp": 255,
             "at": 120,
-            "df": 105,
+            "df": 80,
             "sa": 40,
-            "sd": 35,
+            "sd": 20,
             "sp": 60
         },
         "abilities": {
@@ -12136,9 +12136,9 @@ var GAY_PATCH = {
         "bs": {
             "hp": 100,
             "at": 110,
-            "df": 95,
+            "df": 90,
             "sa": 75,
-            "sd": 85,
+            "sd": 80,
             "sp": 80
         },
         "abilities": {
@@ -12356,7 +12356,7 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 1,
-            "at": 90,
+            "at": 110,
             "df": 45,
             "sa": 30,
             "sd": 30,
@@ -12426,9 +12426,9 @@ var GAY_PATCH = {
             "hp": 50,
             "at": 85,
             "df": 105,
-            "sa": 40,
+            "sa": 45,
             "sd": 95,
-            "sp": 20
+            "sp": 25
         },
         "abilities": {
             "0": "Keen Eye"
@@ -12442,9 +12442,9 @@ var GAY_PATCH = {
         "bs": {
             "hp": 50,
             "at": 80,
-            "df": 95,
+            "df": 100,
             "sa": 55,
-            "sd": 65,
+            "sd": 70,
             "sp": 50
         },
         "abilities": {
@@ -12511,9 +12511,9 @@ var GAY_PATCH = {
             "hp": 80,
             "at": 60,
             "df": 40,
-            "sa": 95,
+            "sa": 100,
             "sd": 75,
-            "sp": 100
+            "sp": 105
         },
         "abilities": {
             "0": "Plus"
@@ -12525,12 +12525,12 @@ var GAY_PATCH = {
             ""
         ],
         "bs": {
-            "hp": 80,
+            "hp": 90,
             "at": 40,
             "df": 60,
             "sa": 75,
-            "sd": 95,
-            "sp": 100
+            "sd": 100,
+            "sp": 95
         },
         "abilities": {
             "0": "Minus"
@@ -12700,7 +12700,7 @@ var GAY_PATCH = {
             "df": 85,
             "sa": 105,
             "sd": 85,
-            "sp": 100
+            "sp": 105
         },
         "abilities": {
             "0": "Levitate"
@@ -12814,11 +12814,11 @@ var GAY_PATCH = {
             "Ground"
         ],
         "bs": {
-            "hp": 115,
-            "at": 108,
-            "df": 83,
+            "hp": 120,
+            "at": 98,
+            "df": 78,
             "sa": 86,
-            "sd": 86,
+            "sd": 76,
             "sp": 70
         },
         "abilities": {
@@ -13035,10 +13035,10 @@ var GAY_PATCH = {
             "Flying"
         ],
         "bs": {
-            "hp": 124,
-            "at": 88,
-            "df": 108,
-            "sa": 97,
+            "hp": 114,
+            "at": 100,
+            "df": 103,
+            "sa": 100,
             "sd": 112,
             "sp": 71
         },
@@ -13049,18 +13049,18 @@ var GAY_PATCH = {
     "Chimecho": {
         "types": [
             "Psychic",
-            "Steel"
+            ""
         ],
         "bs": {
             "hp": 100,
             "at": 55,
-            "df": 95,
-            "sa": 105,
-            "sd": 105,
+            "df": 90,
+            "sa": 100,
+            "sd": 100,
             "sp": 70
         },
         "abilities": {
-            "0": "Levitate"
+            "0": "Wind Chime"
         }
     },
     "Absol": {
@@ -13103,12 +13103,12 @@ var GAY_PATCH = {
             "Water"
         ],
         "bs": {
-            "hp": 110,
-            "at": 80,
+            "hp": 120,
+            "at": 85,
             "df": 90,
             "sa": 95,
             "sd": 90,
-            "sp": 65
+            "sp": 60
         },
         "abilities": {
             "0": "Thick Fat"
@@ -13630,7 +13630,7 @@ var GAY_PATCH = {
             "Ground"
         ],
         "bs": {
-            "hp": 116,
+            "hp": 121,
             "at": 83,
             "df": 68,
             "sa": 92,
@@ -13757,7 +13757,7 @@ var GAY_PATCH = {
             "sp": 84
         },
         "abilities": {
-            "0": "Stench"
+            "0": "Putrid Stench"
         }
     },
     "Bronzong": {
@@ -14804,7 +14804,7 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 80,
-            "at": 123,
+            "at": 128,
             "df": 85,
             "sa": 70,
             "sd": 85,
@@ -15049,7 +15049,7 @@ var GAY_PATCH = {
             "sp": 86
         },
         "abilities": {
-            "0": "Stench"
+            "0": "Putrid Stench"
         }
     },
     "Zoroark": {
@@ -15531,7 +15531,7 @@ var GAY_PATCH = {
     "Bouffalant": {
         "types": [
             "Normal",
-            ""
+            "Rock"
         ],
         "bs": {
             "hp": 105,
@@ -16423,8 +16423,8 @@ var GAY_PATCH = {
             "Rock"
         ],
         "bs": {
-            "hp": 100,
-            "at": 137,
+            "hp": 95,
+            "at": 132,
             "df": 184,
             "sa": 34,
             "sd": 36,
@@ -17803,9 +17803,9 @@ var GAY_PATCH = {
             "hp": 70,
             "at": 45,
             "df": 110,
-            "sa": 80,
+            "sa": 85,
             "sd": 120,
-            "sp": 90
+            "sp": 95
         },
         "abilities": {
             "0": "Swarm"
@@ -18039,7 +18039,7 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 75,
-            "at": 98,
+            "at": 103,
             "df": 70,
             "sa": 114,
             "sd": 70,
@@ -18663,8 +18663,8 @@ var GAY_PATCH = {
     },
     "Ursaluna": {
         "types": [
-            "Ground",
-            "Normal"
+            "Normal",
+            "Ground"
         ],
         "bs": {
             "hp": 130,
@@ -18820,8 +18820,8 @@ var GAY_PATCH = {
             ""
         ],
         "bs": {
-            "hp": 110,
-            "at": 100,
+            "hp": 120,
+            "at": 110,
             "df": 80,
             "sa": 59,
             "sd": 85,
@@ -19925,7 +19925,7 @@ var GAY_PATCH = {
             "Ghost"
         ],
         "bs": {
-            "hp": 76,
+            "hp": 71,
             "at": 60,
             "df": 106,
             "sa": 126,

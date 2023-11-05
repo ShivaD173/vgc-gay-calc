@@ -254,7 +254,7 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
         desc.terrain = field.terrain;
         return result;
     }
-    var weightBasedMove = move.named('Heat Crash', 'Heavy Slam', 'Low Kick', 'Grass Knot');
+    var weightBasedMove = move.named('Heat Crash', 'Heavy Slam', 'Slush Crush', 'Low Kick', 'Grass Knot');
     if (defender.isDynamaxed && weightBasedMove) {
         return result;
     }
@@ -507,6 +507,7 @@ function calculateBasePowerSMSSSV(gen, attacker, defender, move, field, hasAteAb
             break;
         case 'Heavy Slam':
         case 'Heat Crash':
+        case 'Slush Crush':
             var wr = (attacker.weightkg * (0, util_2.getWeightFactor)(attacker)) /
                 (defender.weightkg * (0, util_2.getWeightFactor)(defender));
             basePower = wr >= 5 ? 120 : wr >= 4 ? 100 : wr >= 3 ? 80 : wr >= 2 ? 60 : 40;
@@ -623,7 +624,7 @@ function calculateBasePowerSMSSSV(gen, attacker, defender, move, field, hasAteAb
         case 'Crush Grip':
         case 'Wring Out':
             basePower = 100 * Math.floor((defender.curHP() * 4096) / defender.maxHP());
-            basePower = Math.floor(Math.floor((120 * basePower + 2048 - 1) / 4096) / 100) || 1;
+            basePower = Math.floor(Math.floor((140 * basePower + 2048 - 1) / 4096) / 100) || 1;
             desc.moveBP = basePower;
             break;
         default:
@@ -820,7 +821,8 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         desc.attackerAbility = attacker.ability;
     }
     if ((attacker.hasAbility('Reckless') && (move.recoil || move.hasCrashDamage || move.mindBlownRecoil || move.named('Explosion', 'Self-Destruct', 'Misty Explosion'))) ||
-        (attacker.hasAbility('Transphobia') && defender.gender === 'N')) {
+        (attacker.hasAbility('Transphobia') && defender.gender === 'N') ||
+        (attacker.hasAbility('Homophobia') && attacker.abilityOn)) {
         bpMods.push(5325);
         desc.attackerAbility = attacker.ability;
     }

@@ -4843,6 +4843,7 @@ var GAY_PATCH = {
     'Fire Fang': { bp: 75 },
     'Thunder Fang': { bp: 75 },
     'Ice Fang': { bp: 75 },
+    'Wring Out': { category: 'Physical' },
     'Needle Arm': { bp: 90 },
     'Present': { bp: 80 },
     'Aeroblast': { bp: 90 },
@@ -4908,7 +4909,8 @@ var GAY_PATCH = {
     'Quarry': { bp: 0, type: 'Rock', category: 'Status' },
     'Smeltery': { bp: 0, type: 'Steel', category: 'Status' },
     'Ice Rink': { bp: 0, type: 'Ice', category: 'Status' },
-    'Flash Freeze': { bp: 0, type: 'Ice', category: 'Status' }
+    'Flash Freeze': { bp: 0, type: 'Ice', category: 'Status' },
+    'Slush Crush': { bp: 0, type: 'Steel', makesContact: true, category: 'Physical' }
 };
 var SV = (0, util_1.extend)(true, {}, SV_old, GAY_PATCH);
 exports.MOVES = [{}, RBY, GSC, ADV, DPP, BW, XY, SM, SS, SV];
