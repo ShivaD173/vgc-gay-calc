@@ -10357,7 +10357,7 @@ var GAY_PATCH = {
             "sp": 95
         },
         "abilities": {
-            "0": "Damp"
+            "0": "Mind Surfer"
         }
     },
     "Primeape": {
@@ -10638,11 +10638,11 @@ var GAY_PATCH = {
             ""
         ],
         "bs": {
-            "hp": 65,
+            "hp": 60,
             "at": 130,
-            "df": 115,
+            "df": 120,
             "sa": 50,
-            "sd": 50,
+            "sd": 55,
             "sp": 75
         },
         "abilities": {
@@ -11331,7 +11331,7 @@ var GAY_PATCH = {
     },
     "Noctowl": {
         "types": [
-            "Normal",
+            "Dark",
             "Flying"
         ],
         "bs": {
@@ -11404,8 +11404,8 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 125,
-            "at": 68,
-            "df": 68,
+            "at": 63,
+            "df": 63,
             "sa": 86,
             "sd": 86,
             "sp": 67
@@ -11527,7 +11527,7 @@ var GAY_PATCH = {
             "df": 70,
             "sa": 60,
             "sd": 95,
-            "sp": 130
+            "sp": 125
         },
         "abilities": {
             "0": "Chlorophyll"
@@ -12002,8 +12002,8 @@ var GAY_PATCH = {
             "at": 120,
             "df": 80,
             "sa": 40,
-            "sd": 20,
-            "sp": 60
+            "sd": 15,
+            "sp": 55
         },
         "abilities": {
             "0": "Scrappy"
@@ -12220,11 +12220,11 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 95,
-            "at": 105,
+            "at": 110,
             "df": 60,
             "sa": 90,
             "sd": 60,
-            "sp": 80
+            "sp": 85
         },
         "abilities": {
             "0": "Chlorophyll"
@@ -13052,10 +13052,10 @@ var GAY_PATCH = {
             ""
         ],
         "bs": {
-            "hp": 100,
+            "hp": 85,
             "at": 55,
             "df": 90,
-            "sa": 100,
+            "sa": 95,
             "sd": 100,
             "sp": 70
         },
@@ -13274,10 +13274,10 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 80,
-            "at": 80,
-            "df": 90,
-            "sa": 110,
-            "sd": 130,
+            "at": 75,
+            "df": 85,
+            "sa": 105,
+            "sd": 125,
             "sp": 110
         },
         "abilities": {
@@ -13291,10 +13291,10 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 80,
-            "at": 90,
-            "df": 80,
-            "sa": 130,
-            "sd": 110,
+            "at": 85,
+            "df": 75,
+            "sa": 125,
+            "sd": 105,
             "sp": 110
         },
         "abilities": {
@@ -13446,7 +13446,7 @@ var GAY_PATCH = {
             "hp": 97,
             "at": 170,
             "df": 65,
-            "sa": 80,
+            "sa": 85,
             "sd": 55,
             "sp": 68
         },
@@ -13462,10 +13462,10 @@ var GAY_PATCH = {
         "bs": {
             "hp": 100,
             "at": 52,
-            "df": 168,
+            "df": 173,
             "sa": 47,
-            "sd": 138,
-            "sp": 30
+            "sd": 143,
+            "sp": 25
         },
         "abilities": {
             "0": "Sturdy"
@@ -13529,9 +13529,9 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 80,
-            "at": 129,
+            "at": 134,
             "df": 70,
-            "sa": 129,
+            "sa": 134,
             "sd": 70,
             "sp": 76
         },
@@ -13545,12 +13545,12 @@ var GAY_PATCH = {
             "Flying"
         ],
         "bs": {
-            "hp": 95,
+            "hp": 100,
             "at": 95,
             "df": 112,
             "sa": 95,
             "sd": 112,
-            "sp": 45
+            "sp": 50
         },
         "abilities": {
             "0": "Intimidate"
@@ -14225,7 +14225,7 @@ var GAY_PATCH = {
             ""
         ],
         "bs": {
-            "hp": 50,
+            "hp": 45,
             "at": 110,
             "df": 135,
             "sa": 65,
@@ -15313,7 +15313,7 @@ var GAY_PATCH = {
             ""
         ],
         "bs": {
-            "hp": 70,
+            "hp": 65,
             "at": 105,
             "df": 120,
             "sa": 70,
@@ -19076,7 +19076,7 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 60,
-            "at": 115,
+            "at": 120,
             "df": 70,
             "sa": 80,
             "sd": 70,
@@ -19347,8 +19347,8 @@ var GAY_PATCH = {
             "Fighting"
         ],
         "bs": {
-            "hp": 82,
-            "at": 115,
+            "hp": 87,
+            "at": 120,
             "df": 74,
             "sa": 75,
             "sd": 64,
@@ -19500,7 +19500,7 @@ var GAY_PATCH = {
             "Steel"
         ],
         "bs": {
-            "hp": 100,
+            "hp": 95,
             "at": 130,
             "df": 120,
             "sa": 60,

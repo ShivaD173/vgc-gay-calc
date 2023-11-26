@@ -234,6 +234,8 @@ function checkForecast(pokemon, weather) {
 }
 exports.checkForecast = checkForecast;
 function checkItem(pokemon, magicRoomActive) {
+    if (pokemon.gen.num === 4 && pokemon.hasItem('Iron Ball'))
+        return;
     if (pokemon.hasAbility('Klutz') && !EV_ITEMS.includes(pokemon.item) ||
         magicRoomActive) {
         pokemon.item = '';
@@ -284,13 +286,13 @@ function checkDownload(source, target, wonderRoomActive) {
 }
 exports.checkDownload = checkDownload;
 function checkIntrepidSword(source, gen) {
-    if (source.hasAbility('Intrepid Sword') && gen.num < 9) {
+    if (source.hasAbility('Intrepid Sword') && gen.num > 7) {
         source.boosts.atk = Math.min(6, source.boosts.atk + 1);
     }
 }
 exports.checkIntrepidSword = checkIntrepidSword;
 function checkDauntlessShield(source, gen) {
-    if (source.hasAbility('Dauntless Shield') && gen.num < 9) {
+    if (source.hasAbility('Dauntless Shield') && gen.num > 7) {
         source.boosts.def = Math.min(6, source.boosts.def + 1);
     }
 }

@@ -135,7 +135,8 @@ function calculateDPP(gen, attacker, defender, move, field) {
         ? (0, util_1.getMoveEffectiveness)(gen, move, secondDefenderType, isGhostRevealed, field.isGravity)
         : 1;
     var typeEffectiveness = type1Effectiveness * type2Effectiveness;
-    if (typeEffectiveness === 0 && move.hasType('Ground') && defender.hasItem('Iron Ball')) {
+    if (typeEffectiveness === 0 && move.hasType('Ground') &&
+        (defender.hasItem('Iron Ball') && !defender.hasAbility('Klutz'))) {
         if (type1Effectiveness === 0) {
             type1Effectiveness = 1;
         }

@@ -236,10 +236,10 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
             defender.hasAbility('Lightning Rod', 'Motor Drive', 'Volt Absorb')) ||
         (move.hasType('Ground') &&
             !field.isGravity && !move.named('Thousand Arrows') &&
-            !defender.hasItem('Iron Ball') && defender.hasAbility('Levitate')) ||
+            !defender.hasItem('Iron Ball') && defender.hasAbility('Levitate', 'Tremor Sense')) ||
         (move.flags.bullet && defender.hasAbility('Bulletproof')) ||
         (move.flags.sound && !move.named('Clangorous Soul') && defender.hasAbility('Soundproof')) ||
-        (move.priority > 0 && defender.hasAbility('Queenly Majesty', 'Dazzling', 'Armor Tail')) ||
+        (move.priority > 0 && defender.hasAbility('Queenly Majesty', 'Dazzling', 'Armor Tail', 'Regal Majesty')) ||
         (move.hasType('Ground') && defender.hasAbility('Earth Eater')) ||
         (move.flags.wind && defender.hasAbility('Wind Rider'))) {
         desc.defenderAbility = defender.ability;
@@ -272,6 +272,9 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
     }
     if (move.named('Final Gambit')) {
         result.damage = attacker.curHP();
+        if (attacker.hasAbility('Reckless')) {
+            result.damage = Math.floor(attacker.curHP() * 1.3);
+        }
         return result;
     }
     if (move.named('Guardian of Alola')) {
@@ -290,7 +293,7 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
     if (move.named('Spectral Thief')) {
         var stat = void 0;
         for (stat in defender.boosts) {
-            if (defender.boosts[stat]) {
+            if (defender.boosts[stat] > 0) {
                 attacker.boosts[stat] +=
                     attacker.hasAbility('Contrary') ? -defender.boosts[stat] : defender.boosts[stat];
                 if (attacker.boosts[stat] > 6)
@@ -298,6 +301,8 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
                 if (attacker.boosts[stat] < -6)
                     attacker.boosts[stat] = -6;
                 attacker.stats[stat] = (0, util_2.getModifiedStat)(attacker.rawStats[stat], attacker.boosts[stat]);
+                defender.boosts[stat] = 0;
+                defender.stats[stat] = defender.rawStats[stat];
             }
         }
     }
@@ -436,6 +441,10 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
             if (hitsPhysical && defender.ability === 'Stamina') {
                 defenderDefBoost = Math.min(6, defenderDefBoost + 1);
                 desc.defenderAbility = 'Stamina';
+            }
+            else if (defender.ability === 'Machine Learning') {
+                defenderDefBoost = Math.min(6, defenderDefBoost + 1);
+                desc.defenderAbility = 'Machine Learning';
             }
             else if (hitsPhysical && defender.ability === 'Weak Armor') {
                 defenderDefBoost = Math.max(-6, defenderDefBoost - 1);
@@ -835,7 +844,7 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         bpMods.push(4506);
         desc.attackerItem = attacker.item;
     }
-    if (defender.hasAbility('Heatproof') && move.hasType('Fire')) {
+    if (gen.num <= 8 && defender.hasAbility('Heatproof') && move.hasType('Fire')) {
         bpMods.push(1024);
         desc.defenderAbility = defender.ability;
     }
@@ -1003,6 +1012,10 @@ function calculateAtModsSMSSSV(gen, attacker, defender, move, field, desc) {
         atMods.push(2048);
         desc.defenderAbility = defender.ability;
     }
+    if (gen.num >= 9 && defender.hasAbility('Heatproof') && move.hasType('Fire')) {
+        atMods.push(2048);
+        desc.defenderAbility = defender.ability;
+    }
     var isTabletsOfRuinActive = (defender.hasAbility('Tablets of Ruin') || field.isTabletsOfRuin) &&
         !attacker.hasAbility('Tablets of Ruin');
     var isVesselOfRuinActive = (defender.hasAbility('Vessel of Ruin') || field.isVesselOfRuin) &&
@@ -1121,6 +1134,9 @@ function calculateDfModsSMSSSV(gen, attacker, defender, move, field, desc, isCri
     else if (defender.hasAbility('Snow Cloak') && field.hasWeather('Snow') && !hitsPhysical) {
         dfMods.push(4915);
         desc.defenderAbility = defender.ability;
+    }
+    else if (defender.hasAbility('Arctic Rush') && field.hasWeather('Snow', 'Rain') && !hitsPhysical) {
+        dfMods.push(6144);
     }
     else if (defender.hasAbility('Heavy Metal')) {
         dfMods.push(4506);
