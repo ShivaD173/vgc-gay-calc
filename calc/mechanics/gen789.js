@@ -840,6 +840,11 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         bpMods.push(5734);
         desc.attackerAbility = attacker.ability;
     }
+    if ((attacker.hasAbility('Mystic Fist') && move.flags.punch)) {
+        bpMods.push(4506);
+        move.category = 'Special';
+        desc.attackerAbility = attacker.ability;
+    }
     if (attacker.hasItem('Punching Glove') && move.flags.punch) {
         bpMods.push(4506);
         desc.attackerItem = attacker.item;
@@ -903,6 +908,7 @@ function calculateAttackSMSSSV(gen, attacker, defender, move, field, desc, isCri
     var attack;
     var attackSource = move.named('Foul Play') ? defender : attacker;
     if (move.named('Photon Geyser', 'Light That Burns The Sky', 'Hydro Cannon', 'Blast Burn', 'Frenzy Plant') ||
+        attacker.hasAbility("Ballin'") ||
         (move.named('Tera Blast') && attackSource.teraType)) {
         move.category = attackSource.stats.atk > attackSource.stats.spa ? 'Physical' : 'Special';
     }

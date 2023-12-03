@@ -404,7 +404,9 @@ var SV = SV_orig.concat([
     'Regal Majesty',
     'Putrid Stench',
     'Wind Chime',
-    'Machine Learning'
+    'Machine Learning',
+    'Mystic Fist',
+    "Ballin'"
 ]);
 exports.ABILITIES = [[], RBY, GSC, ADV, DPP, BW, XY, SM, SS, SV];
 var Abilities = (function () {
