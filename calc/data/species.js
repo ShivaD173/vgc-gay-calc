@@ -10612,7 +10612,7 @@ var GAY_PATCH = {
             "sp": 110
         },
         "abilities": {
-            "0": "Cursed Body"
+            "0": "Mystic Fist"
         }
     },
     "Hypno": {
@@ -10842,8 +10842,8 @@ var GAY_PATCH = {
             "Fairy"
         ],
         "bs": {
-            "hp": 45,
-            "at": 50,
+            "hp": 40,
+            "at": 55,
             "df": 65,
             "sa": 110,
             "sd": 120,
@@ -11014,9 +11014,9 @@ var GAY_PATCH = {
         "bs": {
             "hp": 60,
             "at": 65,
-            "df": 60,
+            "df": 55,
             "sa": 55,
-            "sd": 75,
+            "sd": 70,
             "sp": 65
         },
         "abilities": {
@@ -11353,9 +11353,9 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 70,
-            "at": 115,
+            "at": 35,
             "df": 55,
-            "sa": 70,
+            "sa": 125,
             "sd": 125,
             "sp": 95
         },
@@ -12542,9 +12542,9 @@ var GAY_PATCH = {
             "Electric"
         ],
         "bs": {
-            "hp": 80,
+            "hp": 70,
             "at": 103,
-            "df": 80,
+            "df": 75,
             "sa": 47,
             "sd": 90,
             "sp": 95
@@ -12559,9 +12559,9 @@ var GAY_PATCH = {
             "Fairy"
         ],
         "bs": {
-            "hp": 80,
+            "hp": 70,
             "at": 47,
-            "df": 80,
+            "df": 75,
             "sa": 103,
             "sd": 90,
             "sp": 95
@@ -15110,7 +15110,7 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 70,
-            "at": 55,
+            "at": 60,
             "df": 95,
             "sa": 95,
             "sd": 110,
@@ -15126,15 +15126,15 @@ var GAY_PATCH = {
             ""
         ],
         "bs": {
-            "hp": 115,
+            "hp": 110,
             "at": 65,
             "df": 75,
-            "sa": 135,
+            "sa": 130,
             "sd": 85,
             "sp": 30
         },
         "abilities": {
-            "0": "Overcoat"
+            "0": "Mystic Fist"
         }
     },
     "Swanna": {
@@ -16149,7 +16149,7 @@ var GAY_PATCH = {
             "hp": 71,
             "at": 78,
             "df": 88,
-            "sa": 120,
+            "sa": 125,
             "sd": 89,
             "sp": 59
         },
@@ -16423,7 +16423,7 @@ var GAY_PATCH = {
             "Rock"
         ],
         "bs": {
-            "hp": 95,
+            "hp": 100,
             "at": 132,
             "df": 184,
             "sa": 34,
@@ -19327,7 +19327,7 @@ var GAY_PATCH = {
     "Houndstone": {
         "types": [
             "Ghost",
-            ""
+            "Rock"
         ],
         "bs": {
             "hp": 82,

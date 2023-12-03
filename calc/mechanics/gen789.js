@@ -740,7 +740,6 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
             attacker.hasStatus('brn') && move.category === 'Special') ||
         (attacker.hasAbility('Toxic Boost') &&
             attacker.hasStatus('psn', 'tox') && move.category === 'Physical') ||
-        (attacker.hasAbility('Mega Launcher') && (move.flags.pulse || move.name.endsWith('Cannon'))) ||
         (attacker.hasAbility('Strong Jaw') && move.flags.bite) ||
         (attacker.hasAbility('Steely Spirit') && move.hasType('Steel')) ||
         (attacker.hasAbility('Sharpness') && move.flags.slicing)) {
@@ -772,6 +771,7 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
     }
     if (((attacker.hasAbility('Sheer Force') || attacker.hasAbility('The Flock')) &&
         (move.secondaries || move.named('Jet Punch', 'Order Up')) && !move.isMax) ||
+        (attacker.hasAbility('Mega Launcher') && (move.flags.pulse || move.flags.bullet || move.name.endsWith('Cannon'))) ||
         (attacker.hasAbility('Analytic') &&
             (turnOrder !== 'first' || field.defenderSide.isSwitching === 'out')) ||
         (attacker.hasAbility('Tough Claws') && move.flags.contact)) {

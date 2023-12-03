@@ -105,8 +105,8 @@ function performCalculations() {
 				for (var n = 0; n < 4; n++) {
 					result = damageResults[n];
 					minMaxDamage = result.range();
-					minDamage = minMaxDamage[0] * attacker.moves[n].hits;
-					maxDamage = minMaxDamage[1] * attacker.moves[n].hits;
+					minDamage = minMaxDamage[0];
+					maxDamage = minMaxDamage[1];
 					minPercentage = Math.floor(minDamage * 1000 / defender.maxHP()) / 10;
 					maxPercentage = Math.floor(maxDamage * 1000 / defender.maxHP()) / 10;
 					minPixels = Math.floor(minDamage * 48 / defender.maxHP());
@@ -259,7 +259,7 @@ function constructDataTable() {
 		// dom: 'C<"clear">fti',
 		paging: false,
 		// scrollX: Math.floor(dtWidth / 100) * 100, // round down to nearest hundred
-		scrollY: 500,
+		scrollY: 300,
 		scrollCollapse: true
 	});
 }
