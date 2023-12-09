@@ -406,7 +406,7 @@ var SV = SV_orig.concat([
     'Wind Chime',
     'Machine Learning',
     'Mystic Fist',
-    "Ballin'"
+    "Ballin'",
 ]);
 exports.ABILITIES = [[], RBY, GSC, ADV, DPP, BW, XY, SM, SS, SV];
 var Abilities = (function () {

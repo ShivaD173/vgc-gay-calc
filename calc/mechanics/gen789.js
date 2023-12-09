@@ -443,8 +443,10 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
                 desc.defenderAbility = 'Stamina';
             }
             else if (defender.ability === 'Machine Learning') {
-                defenderDefBoost = Math.min(6, defenderDefBoost + 1);
-                desc.defenderAbility = 'Machine Learning';
+                if (times === 0) {
+                    defenderDefBoost = Math.min(6, defenderDefBoost + 1);
+                    desc.defenderAbility = 'Machine Learning';
+                }
             }
             else if (hitsPhysical && defender.ability === 'Weak Armor') {
                 defenderDefBoost = Math.max(-6, defenderDefBoost - 1);
@@ -704,8 +706,8 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         desc.weather = field.weather;
     }
     else if (move.named('Collision Course', 'Electro Drift')) {
-        var isGhostRevealed = attacker.hasAbility('Scrappy') || attacker.hasAbility('Mind\'s Eye') || attacker.hasAbility('Normalize');
-        field.defenderSide.isForesight;
+        var isGhostRevealed = attacker.hasAbility('Scrappy') || attacker.hasAbility('Mind\'s Eye') || attacker.hasAbility('Normalize') ||
+            field.defenderSide.isForesight;
         var isRingTarget = (defender.hasItem('Ring Target') && !defender.hasAbility('Klutz')) || (attacker.hasAbility('Corrosion') && move.type === 'Poison');
         var types = defender.teraType ? [defender.teraType] : defender.types;
         var type1Effectiveness = (0, util_2.getMoveEffectiveness)(gen, move, types[0], isGhostRevealed, field.isGravity, isRingTarget);
@@ -908,9 +910,12 @@ function calculateAttackSMSSSV(gen, attacker, defender, move, field, desc, isCri
     var attack;
     var attackSource = move.named('Foul Play') ? defender : attacker;
     if (move.named('Photon Geyser', 'Light That Burns The Sky', 'Hydro Cannon', 'Blast Burn', 'Frenzy Plant') ||
-        attacker.hasAbility("Ballin'") ||
         (move.named('Tera Blast') && attackSource.teraType)) {
         move.category = attackSource.stats.atk > attackSource.stats.spa ? 'Physical' : 'Special';
+    }
+    if (attacker.hasAbility("Ballin'") && move.flags.bullet) {
+        move.category = attackSource.stats.atk > attackSource.stats.spa ? 'Physical' : 'Special';
+        desc.attackerAbility = attacker.ability;
     }
     var attackStat = move.named('Shell Side Arm') &&
         (0, util_2.getShellSideArmCategory)(attacker, defender) === 'Physical'
@@ -1247,10 +1252,12 @@ function calculateFinalModsSMSSSV(gen, attacker, defender, move, field, desc, is
         desc.attackerAbility = attacker.ability;
     }
     else if (attacker.hasAbility('Normalize') && typeEffectiveness < 1) {
-        if (typeEffectiveness === .5)
+        if (typeEffectiveness === 0.5) {
             finalMods.push(8192);
-        if (typeEffectiveness === .25)
+        }
+        if (typeEffectiveness === 0.25) {
             finalMods.push(16384);
+        }
         desc.attackerAbility = attacker.ability;
     }
     if (defender.isDynamaxed && move.named('Dynamax Cannon', 'Behemoth Blade', 'Behemoth Bash')) {

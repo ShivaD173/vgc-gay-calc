@@ -10493,7 +10493,7 @@ var GAY_PATCH = {
             "sp": 50
         },
         "abilities": {
-            "0": "Surge Surfer"
+            "0": "Big Balls"
         }
     },
     "Rapidash-Galar": {
@@ -11349,7 +11349,7 @@ var GAY_PATCH = {
     "Ledian": {
         "types": [
             "Bug",
-            "Flying"
+            "Fighting"
         ],
         "bs": {
             "hp": 70,
@@ -12000,7 +12000,7 @@ var GAY_PATCH = {
         "bs": {
             "hp": 255,
             "at": 120,
-            "df": 80,
+            "df": 75,
             "sa": 40,
             "sd": 15,
             "sp": 55
@@ -12781,9 +12781,9 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 90,
-            "at": 55,
+            "at": 60,
             "df": 65,
-            "sa": 95,
+            "sa": 90,
             "sd": 85,
             "sp": 70
         },
@@ -12798,9 +12798,9 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 90,
-            "at": 95,
+            "at": 100,
             "df": 85,
-            "sa": 55,
+            "sa": 50,
             "sd": 65,
             "sp": 70
         },
@@ -14012,7 +14012,7 @@ var GAY_PATCH = {
             "sp": 40
         },
         "abilities": {
-            "0": "Lightning Rod"
+            "0": "Mega Launcher"
         }
     },
     "Tangrowth": {
@@ -14039,10 +14039,10 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 75,
-            "at": 123,
+            "at": 125,
             "df": 67,
             "sa": 95,
-            "sd": 85,
+            "sd": 83,
             "sp": 95
         },
         "abilities": {
@@ -14059,8 +14059,8 @@ var GAY_PATCH = {
             "at": 95,
             "df": 67,
             "sa": 125,
-            "sd": 95,
-            "sp": 83
+            "sd": 83,
+            "sp": 95
         },
         "abilities": {
             "0": "Flame Body"
@@ -16468,18 +16468,18 @@ var GAY_PATCH = {
             "0": "Overgrow"
         }
     },
-    "Torracat": {
+    "Incineroar": {
         "types": [
             "Fire",
-            ""
+            "Dark"
         ],
         "bs": {
-            "hp": 70,
-            "at": 85,
-            "df": 55,
+            "hp": 95,
+            "at": 115,
+            "df": 90,
             "sa": 80,
-            "sd": 55,
-            "sp": 90
+            "sd": 90,
+            "sp": 60
         },
         "abilities": {
             "0": "Blaze"
@@ -17716,10 +17716,10 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 100,
-            "at": 120,
-            "df": 90,
-            "sa": 60,
-            "sd": 70,
+            "at": 110,
+            "df": 95,
+            "sa": 65,
+            "sd": 75,
             "sp": 85
         },
         "abilities": {
