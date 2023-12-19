@@ -26,31 +26,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __read = (this && this.__read) || function (o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-};
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
     if (m) return m.call(o);
@@ -91,44 +66,34 @@ var GSC = [
     'King\'s Rock',
     'Leaf Stone',
     'Leftovers',
-    'Level Ball',
-    'Light Ball',
-    'Love Ball',
     'Lucky Punch',
-    'Lure Ball',
     'Magnet',
     'Mail',
-    'Master Ball',
     'Metal Coat',
     'Metal Powder',
     'Mint Berry',
     'Miracle Berry',
     'Miracle Seed',
-    'Moon Ball',
     'Moon Stone',
     'Mystery Berry',
     'Mystic Water',
     'Never-Melt Ice',
     'Pink Bow',
     'Poison Barb',
-    'Poke Ball',
     'Polkadot Bow',
     'PRZ Cure Berry',
     'PSN Cure Berry',
     'Quick Claw',
-    'Safari Ball',
     'Scope Lens',
     'Sharp Beak',
     'Silver Powder',
     'Soft Sand',
     'Spell Tag',
-    'Sport Ball',
     'Stick',
     'Sun Stone',
     'Thick Club',
     'Thunder Stone',
     'Twisted Spoon',
-    'Ultra Ball',
     'Up-Grade',
     'Water Stone',
 ];
@@ -160,7 +125,6 @@ var ADV = GSC.filter(function (i) { return !GSC_ONLY.includes(i); }).concat([
     'Cornn Berry',
     'Deep Sea Scale',
     'Deep Sea Tooth',
-    'Dive Ball',
     'Dome Fossil',
     'Durin Berry',
     'Enigma Berry',
@@ -176,14 +140,11 @@ var ADV = GSC.filter(function (i) { return !GSC_ONLY.includes(i); }).concat([
     'Leppa Berry',
     'Liechi Berry',
     'Lum Berry',
-    'Luxury Ball',
     'Macho Brace',
     'Mago Berry',
     'Magost Berry',
     'Mental Herb',
     'Nanab Berry',
-    'Nest Ball',
-    'Net Ball',
     'Nomel Berry',
     'Old Amber',
     'Oran Berry',
@@ -193,12 +154,10 @@ var ADV = GSC.filter(function (i) { return !GSC_ONLY.includes(i); }).concat([
     'Petaya Berry',
     'Pinap Berry',
     'Pomeg Berry',
-    'Premier Ball',
     'Qualot Berry',
     'Rabuta Berry',
     'Rawst Berry',
     'Razz Berry',
-    'Repeat Ball',
     'Root Fossil',
     'Salac Berry',
     'Sea Incense',
@@ -209,7 +168,6 @@ var ADV = GSC.filter(function (i) { return !GSC_ONLY.includes(i); }).concat([
     'Spelon Berry',
     'Starf Berry',
     'Tamato Berry',
-    'Timer Ball',
     'Watmel Berry',
     'Wepear Berry',
     'White Herb',
@@ -222,7 +180,6 @@ var DPP = ADV.concat([
     'Big Root',
     'Black Sludge',
     'Charti Berry',
-    'Cherish Ball',
     'Chilan Berry',
     'Choice Scarf',
     'Choice Specs',
@@ -236,7 +193,6 @@ var DPP = ADV.concat([
     'Draco Plate',
     'Dread Plate',
     'Dubious Disc',
-    'Dusk Ball',
     'Dusk Stone',
     'Earth Plate',
     'Electirizer',
@@ -249,12 +205,10 @@ var DPP = ADV.concat([
     'Grip Claw',
     'Griseous Orb',
     'Haban Berry',
-    'Heal Ball',
     'Heat Rock',
     'Icicle Plate',
     'Icy Rock',
     'Insect Plate',
-    'Iron Ball',
     'Iron Plate',
     'Jaboca Berry',
     'Kasib Berry',
@@ -272,7 +226,6 @@ var DPP = ADV.concat([
     'Occa Berry',
     'Odd Incense',
     'Oval Stone',
-    'Park Ball',
     'Passho Berry',
     'Payapa Berry',
     'Power Anklet',
@@ -283,7 +236,6 @@ var DPP = ADV.concat([
     'Power Lens',
     'Power Weight',
     'Protector',
-    'Quick Ball',
     'Quick Powder',
     'Razor Claw',
     'Razor Fang',
@@ -324,7 +276,6 @@ var BW = DPP.concat([
     'Dark Gem',
     'Douse Drive',
     'Dragon Gem',
-    'Dream Ball',
     'Eject Button',
     'Electric Gem',
     'Eviolite',
@@ -399,7 +350,7 @@ exports.MEGA_STONES = {
     Tyranitarite: 'Tyranitar',
     Venusaurite: 'Venusaur'
 };
-var XY = BW.concat(__spreadArray(__spreadArray([], __read(Object.keys(exports.MEGA_STONES)), false), [
+var XY = BW.concat([
     'Assault Vest',
     'Blue Orb',
     'Fairy Gem',
@@ -412,7 +363,7 @@ var XY = BW.concat(__spreadArray(__spreadArray([], __read(Object.keys(exports.ME
     'Safety Goggles',
     'Snowball',
     'Weakness Policy',
-], false).sort());
+].sort());
 var SM = XY.filter(function (i) { return i !== 'Old Amber'; }).concat([
     'Adrenaline Orb',
     'Aloraichium Z',
@@ -485,7 +436,7 @@ var SS = SM.concat([
     'Throat Spray',
 ]);
 SS.push('Utility Umbrella', 'Vile Vial');
-SS.push.apply(SS, __spreadArray(__spreadArray([], __read(GSC_ONLY), false), ['Old Amber'], false));
+SS.push('Berserk Gene');
 var SV = SS.concat([
     'Adamant Crystal',
     'Ability Shield',

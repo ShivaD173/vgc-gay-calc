@@ -212,6 +212,13 @@ function checkAirLock(pokemon, field) {
     }
 }
 exports.checkAirLock = checkAirLock;
+function checkTeraformZero(pokemon, field) {
+    if (pokemon.hasAbility('Teraform Zero') && pokemon.abilityOn) {
+        field.weather = undefined;
+        field.terrain = undefined;
+    }
+}
+exports.checkTeraformZero = checkTeraformZero;
 function checkForecast(pokemon, weather) {
     if (pokemon.hasAbility('Forecast') && pokemon.named('Castform')) {
         switch (weather) {
@@ -253,8 +260,8 @@ function checkIntimidate(gen, source, target) {
     var blocked = target.hasAbility('Clear Body', 'White Smoke', 'Hyper Cutter', 'Full Metal Body') ||
         (gen.num >= 8 && target.hasAbility('Inner Focus', 'Own Tempo', 'Oblivious', 'Scrappy')) ||
         target.hasItem('Clear Amulet');
-    if ((source.hasAbility('Intimidate') || source.hasAbility('The Flock'))
-        && source.abilityOn && !blocked) {
+    if ((source.hasAbility('Intimidate') || source.hasAbility('The Flock')) &&
+        source.abilityOn && !blocked) {
         if (target.hasAbility('Contrary', 'Defiant', 'Guard Dog')) {
             target.boosts.atk = Math.min(6, target.boosts.atk + 1);
         }

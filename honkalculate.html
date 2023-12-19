@@ -8,7 +8,7 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css" />
     <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/colvis/1.1.1/css/dataTables.colVis.css" />
     <link type="text/css" rel="stylesheet" href="./js/vendor/select2/select2.css" />
-    <link type="text/css" rel="stylesheet" href="./css/main.css?8f3bcf13" />
+    <link type="text/css" rel="stylesheet" href="./css/main.css?fb49ecce" />
     <link type="text/css" rel="stylesheet" href="./css/dark-theme.css" id="dark-theme-styles">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-26211653-3"></script>
@@ -484,6 +484,8 @@
                         <label class="btn crit-btn" for="critL1" title="Force this attack to be a critical hit?">Crit</label>
                         <input class="move-z visually-hidden" type="checkbox" id="zL1"/>
                         <label class="btn z-btn gen-specific g7" for="zL1" title="Make this attack a Z-move?">Z</label>
+                        <input class="move-stellar visually-hidden" type="checkbox" id="stellarL1" />
+                        <label class="stellar-btn btn" style="display: none;" for="stellarL1" title="Make this attack Stellar boosted?">Stellar</label>
                         <select class="move-hits hide">
                             <option value="2">2 hits</option>
                             <option value="3">3 hits</option>
@@ -518,6 +520,8 @@
                         <label class="btn crit-btn" for="critL2" title="Force this attack to be a critical hit?">Crit</label>
                         <input class="move-z visually-hidden" type="checkbox" id="zL2"/>
                         <label class="btn z-btn gen-specific g7" for="zL2" title="Make this attack a Z-move?">Z</label>
+                        <input class="move-stellar visually-hidden" type="checkbox" id="stellarL2" />
+                        <label class="stellar-btn btn" style="display: none;" for="stellarL2" title="Make this attack Stellar boosted?">Stellar</label>
                         <select class="move-hits hide">
                             <option value="2">2 hits</option>
                             <option value="3">3 hits</option>
@@ -552,6 +556,8 @@
                         <label class="btn crit-btn" for="critL3" title="Force this attack to be a critical hit?">Crit</label>
                         <input class="move-z visually-hidden" type="checkbox" id="zL3"/>
                         <label class="btn z-btn gen-specific g7" for="zL3" title="Make this attack a Z-move?">Z</label>
+                        <input class="move-stellar visually-hidden" type="checkbox" id="stellarL3" />
+                        <label class="stellar-btn btn" style="display: none;" for="stellarL3" title="Make this attack Stellar boosted?">Stellar</label>
                         <select class="move-hits hide">
                             <option value="2">2 hits</option>
                             <option value="3">3 hits</option>
@@ -586,6 +592,8 @@
                         <label class="btn crit-btn" for="critL4" title="Force this attack to be a critical hit?">Crit</label>
                         <input class="move-z visually-hidden" type="checkbox" id="zL4"/>
                         <label class="btn z-btn gen-specific g7" for="zL4" title="Make this attack a Z-move?">Z</label>
+                        <input class="move-stellar visually-hidden" type="checkbox" id="stellarL4" />
+                        <label class="stellar-btn btn" style="display: none;" for="stellarL4" title="Make this attack Stellar boosted?">Stellar</label>
                         <select class="move-hits hide">
                             <option value="2">2 hits</option>
                             <option value="3">3 hits</option>
@@ -935,28 +943,28 @@
     </script>
     <script type="text/javascript" src="./calc/util.js?51463f0d"></script>
     <script type="text/javascript" src="./calc/stats.js?a9e37d1a"></script>
-    <script type="text/javascript" src="./calc/data/species.js?73168294"></script>
-    <script type="text/javascript" src="./js/data/sets/gen9.js?14484590"></script>
-    <script type="text/javascript" src="./js/data/sets/gen8.js?71db83ca"></script>
-    <script type="text/javascript" src="./js/data/sets/gen7.js?5d7f5165"></script>
-    <script type="text/javascript" src="./js/data/sets/gen6.js?dad79bc7"></script>
-    <script type="text/javascript" src="./js/data/sets/gen5.js?995648dc"></script>
-    <script type="text/javascript" src="./js/data/sets/gen4.js?dfec5a8f"></script>
-    <script type="text/javascript" src="./js/data/sets/gen3.js?f1ac5624"></script>
-    <script type="text/javascript" src="./js/data/sets/gen2.js?4c3124c5"></script>
-    <script type="text/javascript" src="./js/data/sets/gen1.js?d81cf801"></script>
-    <script type="text/javascript" src="./calc/data/types.js?3267f790"></script>
+    <script type="text/javascript" src="./calc/data/species.js?518223b7"></script>
+    <script type="text/javascript" src="./js/data/sets/gen9.js?aabd9143"></script>
+    <script type="text/javascript" src="./js/data/sets/gen8.js?0ef71198"></script>
+    <script type="text/javascript" src="./js/data/sets/gen7.js?10ee3e1a"></script>
+    <script type="text/javascript" src="./js/data/sets/gen6.js?fa89aea5"></script>
+    <script type="text/javascript" src="./js/data/sets/gen5.js?1ae6e298"></script>
+    <script type="text/javascript" src="./js/data/sets/gen4.js?79a55c71"></script>
+    <script type="text/javascript" src="./js/data/sets/gen3.js?2b5aa5e2"></script>
+    <script type="text/javascript" src="./js/data/sets/gen2.js?39d64009"></script>
+    <script type="text/javascript" src="./js/data/sets/gen1.js?b52b3150"></script>
+    <script type="text/javascript" src="./calc/data/types.js?a641e10b"></script>
     <script type="text/javascript" src="./calc/data/natures.js?28612810"></script>
-    <script type="text/javascript" src="./calc/data/abilities.js?3eed89bd"></script>
-    <script type="text/javascript" src="./calc/data/moves.js?45f359b8"></script>
-    <script type="text/javascript" src="./calc/data/items.js?a1b6db24"></script>
+    <script type="text/javascript" src="./calc/data/abilities.js?6dd8d9ed"></script>
+    <script type="text/javascript" src="./calc/data/moves.js?eeadeb05"></script>
+    <script type="text/javascript" src="./calc/data/items.js?1fdb03ab"></script>
     <script type="text/javascript" src="./calc/data/index.js?abecbd82"></script>
-    <script type="text/javascript" src="./calc/move.js?57ab9f0a"></script>
+    <script type="text/javascript" src="./calc/move.js?8b27dcd1"></script>
     <script type="text/javascript" src="./calc/pokemon.js?1e459e1e"></script>
     <script type="text/javascript" src="./calc/field.js?bbf04408"></script>
     <script type="text/javascript" src="./calc/items.js?067e42a4"></script>
-    <script type="text/javascript" src="./calc/mechanics/util.js?3ef9c6dc"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen789.js?de13aa2e"></script>
+    <script type="text/javascript" src="./calc/mechanics/util.js?ce3c51e9"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen789.js?31a17f21"></script>
     <script type="text/javascript" src="./calc/mechanics/gen56.js?95b0cd4a"></script>
     <script type="text/javascript" src="./calc/mechanics/gen4.js?7be59c39"></script>
     <script type="text/javascript" src="./calc/mechanics/gen3.js?d6d72197"></script>
@@ -966,7 +974,7 @@
     <script type="text/javascript" src="./calc/result.js?9f8881b5"></script>
     <script type="text/javascript" src="./calc/adaptable.js?92e49194"></script>
     <script type="text/javascript" src="./calc/index.js?0b1745b9"></script>
-    <script type="text/javascript" src="./js/shared_controls.js?b2d92e06"></script>
+    <script type="text/javascript" src="./js/shared_controls.js?14ecdfa3"></script>
     <script type="text/javascript" src="./js/honkalculate_controls.js?4364dda0"></script>
 
     <div style="clear:both;padding:20px;text-align:left">Created by Honko, maintained by Austin and Kris

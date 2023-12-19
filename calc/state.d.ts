@@ -28,6 +28,7 @@ export declare namespace State {
         useZ?: boolean;
         useMax?: boolean;
         isCrit?: boolean;
+        isStellarFirstUse?: boolean;
         hits?: number;
         timesUsed?: number;
         timesUsedWithMetronome?: number;

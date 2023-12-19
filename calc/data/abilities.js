@@ -347,6 +347,7 @@ var SV_orig = SS.concat([
     'Mycelium Might',
     'Opportunist',
     'Orichalcum Pulse',
+    'Poison Puppeteer',
     'Protosynthesis',
     'Purifying Salt',
     'Quark Drive',
@@ -357,6 +358,9 @@ var SV_orig = SS.concat([
     'Supreme Overlord',
     'Sword of Ruin',
     'Tablets of Ruin',
+    'Tera Shell',
+    'Tera Shift',
+    'Teraform Zero',
     'Thermal Exchange',
     'Toxic Chain',
     'Toxic Debris',
@@ -407,6 +411,7 @@ var SV = SV_orig.concat([
     'Machine Learning',
     'Mystic Fist',
     "Ballin'",
+    'Running Start',
 ]);
 exports.ABILITIES = [[], RBY, GSC, ADV, DPP, BW, XY, SM, SS, SV];
 var Abilities = (function () {
