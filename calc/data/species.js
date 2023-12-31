@@ -10918,8 +10918,8 @@ var GAY_PATCH = {
             "Fairy"
         ],
         "bs": {
-            "hp": 40,
-            "at": 55,
+            "hp": 45,
+            "at": 50,
             "df": 65,
             "sa": 110,
             "sd": 120,
@@ -13060,11 +13060,11 @@ var GAY_PATCH = {
             ""
         ],
         "bs": {
-            "hp": 60,
+            "hp": 50,
             "at": 90,
-            "df": 65,
+            "df": 70,
             "sa": 70,
-            "sd": 115,
+            "sd": 120,
             "sp": 40
         },
         "abilities": {
@@ -15258,7 +15258,7 @@ var GAY_PATCH = {
             "df": 75,
             "sa": 65,
             "sd": 75,
-            "sp": 115
+            "sp": 110
         },
         "abilities": {
             "0": "Chlorophyll"
@@ -15791,7 +15791,7 @@ var GAY_PATCH = {
             "0": "Prankster"
         }
     },
-    "Tornadus Therian": {
+    "Tornadus-Therian": {
         "types": [
             "Flying",
             ""
@@ -15825,7 +15825,7 @@ var GAY_PATCH = {
             "0": "Prankster"
         }
     },
-    "Thundurus Therian": {
+    "Thundurus-Therian": {
         "types": [
             "Electric",
             "Flying"
@@ -15859,7 +15859,7 @@ var GAY_PATCH = {
             "0": "Sand Force"
         }
     },
-    "Landorus Therian": {
+    "Landorus-Therian": {
         "types": [
             "Ground",
             "Flying"
@@ -16239,7 +16239,7 @@ var GAY_PATCH = {
             "Normal"
         ],
         "bs": {
-            "hp": 67,
+            "hp": 72,
             "at": 60,
             "df": 57,
             "sa": 114,
@@ -16393,9 +16393,9 @@ var GAY_PATCH = {
         ],
         "bs": {
             "hp": 62,
-            "at": 80,
+            "at": 85,
             "df": 91,
-            "sa": 80,
+            "sa": 85,
             "sd": 87,
             "sp": 75
         },
@@ -16680,7 +16680,7 @@ var GAY_PATCH = {
             "0": "Dancer"
         }
     },
-    "Oricorio Pom-Pom": {
+    "Oricorio-Pom-Pom": {
         "types": [
             "Electric",
             "Flying"
@@ -16697,7 +16697,7 @@ var GAY_PATCH = {
             "0": "Dancer"
         }
     },
-    "Oricorio Pa'u": {
+    "Oricorio-Pa'u": {
         "types": [
             "Fairy",
             "Flying"
@@ -16714,7 +16714,7 @@ var GAY_PATCH = {
             "0": "Dancer"
         }
     },
-    "Oricorio Sensu": {
+    "Oricorio-Sensu": {
         "types": [
             "Ghost",
             "Flying"
@@ -16765,7 +16765,7 @@ var GAY_PATCH = {
             "0": "Keen Eye"
         }
     },
-    "Lycanroc Midnight": {
+    "Lycanroc-Midnight": {
         "types": [
             "Rock",
             ""
@@ -16782,7 +16782,7 @@ var GAY_PATCH = {
             "0": "Keen Eye"
         }
     },
-    "Lycanroc Dusk": {
+    "Lycanroc-Dusk": {
         "types": [
             "Rock",
             ""
@@ -16816,7 +16816,7 @@ var GAY_PATCH = {
             "0": "Schooling"
         }
     },
-    "Wishiwashi School": {
+    "Wishiwashi-School": {
         "types": [
             "Water",
             ""
@@ -17088,7 +17088,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyBug": {
+    "Silvally-Bug": {
         "types": [
             "Bug",
             ""
@@ -17105,7 +17105,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyDark": {
+    "Silvally-Dark": {
         "types": [
             "Dark",
             ""
@@ -17122,7 +17122,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyDragon": {
+    "Silvally-Dragon": {
         "types": [
             "Dragon",
             ""
@@ -17139,7 +17139,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyElectric": {
+    "Silvally-Electric": {
         "types": [
             "Electric",
             ""
@@ -17156,7 +17156,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyFairy": {
+    "Silvally-Fairy": {
         "types": [
             "Fairy",
             ""
@@ -17173,7 +17173,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyFighting": {
+    "Silvally-Fighting": {
         "types": [
             "Fighting",
             ""
@@ -17190,7 +17190,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyFire": {
+    "Silvally-Fire": {
         "types": [
             "Fire",
             ""
@@ -17207,7 +17207,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyFlying": {
+    "Silvally-Flying": {
         "types": [
             "Flying",
             ""
@@ -17224,7 +17224,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyGhost": {
+    "Silvally-Ghost": {
         "types": [
             "Ghost",
             ""
@@ -17241,7 +17241,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyGrass": {
+    "Silvally-Grass": {
         "types": [
             "Grass",
             ""
@@ -17258,7 +17258,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyGround": {
+    "Silvally-Ground": {
         "types": [
             "Ground",
             ""
@@ -17275,7 +17275,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyIce": {
+    "Silvally-Ice": {
         "types": [
             "Ice",
             ""
@@ -17292,7 +17292,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyPoison": {
+    "Silvally-Poison": {
         "types": [
             "Poison",
             ""
@@ -17309,7 +17309,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyPsychic": {
+    "Silvally-Psychic": {
         "types": [
             "Psychic",
             ""
@@ -17326,7 +17326,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyRock": {
+    "Silvally-Rock": {
         "types": [
             "Rock",
             ""
@@ -17343,7 +17343,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallySteel": {
+    "Silvally-Steel": {
         "types": [
             "Steel",
             ""
@@ -17360,7 +17360,7 @@ var GAY_PATCH = {
             "0": "RKS System"
         }
     },
-    "SilvallyWater": {
+    "Silvally-Water": {
         "types": [
             "Water",
             ""
@@ -18301,7 +18301,7 @@ var GAY_PATCH = {
             ""
         ],
         "bs": {
-            "hp": 80,
+            "hp": 75,
             "at": 60,
             "df": 80,
             "sa": 110,

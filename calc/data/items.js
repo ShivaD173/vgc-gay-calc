@@ -66,6 +66,7 @@ var GSC = [
     'King\'s Rock',
     'Leaf Stone',
     'Leftovers',
+    'Light Ball',
     'Lucky Punch',
     'Magnet',
     'Mail',
