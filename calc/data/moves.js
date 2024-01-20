@@ -4968,7 +4968,7 @@ var GAY_PATCH = {
     'Surging Strikes': { bp: 23 },
     'Techno Blast': { bp: 100 },
     'Head Charge': { bp: 125 },
-    'Mystical Power': { bp: 60 },
+    'Mystical Power': { bp: 60, type: 'Fairy' },
     'Chatter': { bp: 80 },
     'Snap Trap': { bp: 90, type: 'Steel' },
     'Anchor Shot': { bp: 85 },
