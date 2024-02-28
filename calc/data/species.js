@@ -18601,7 +18601,7 @@ var GAY_PATCH = {
             "0": "Unseen Fist"
         }
     },
-    "Urshifu Rapid Strike": {
+    "Urshifu-Rapid-Strike": {
         "types": [
             "Fighting",
             "Water"
