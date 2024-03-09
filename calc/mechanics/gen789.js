@@ -809,7 +809,7 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
     if (attacker.hasAbility('Large Wingspan') && move.type === 'Flying') {
         move.target = 'allAdjacentFoes';
     }
-    if (attacker.hasAbility('Triple Threat') && move.hits === 1 || desc.attackerAbility === attacker.ability) {
+    if (attacker.hasAbility('Triple Threat') && (move.hits === 1 || desc.attackerAbility === attacker.ability)) {
         bpMods.push(1638);
         move.hits = 3;
         desc.attackerAbility = attacker.ability;
