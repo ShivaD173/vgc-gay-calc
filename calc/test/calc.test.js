@@ -189,7 +189,7 @@ describe('calc', function () {
                         weather: 'Sand', type: 'Rock', damage: {
                             adv: {
                                 range: [96, 114],
-                                desc: '(41.5 - 49.3%) -- 20.7% chance to 2HKO after sandstorm damage'
+                                desc: '(41.5 - 49.3%) -- 82.4% chance to 2HKO after sandstorm damage'
                             },
                             dpp: {
                                 range: [77, 91],
@@ -209,11 +209,11 @@ describe('calc', function () {
                             },
                             dpp: {
                                 range: [230, 272],
-                                desc: '(99.5 - 117.7%) -- 93.8% chance to OHKO'
+                                desc: '(99.5 - 117.7%) -- 93.8% chance to OHKO (guaranteed OHKO after hail damage)'
                             },
                             modern: {
                                 range: [230, 272],
-                                desc: '(99.5 - 117.7%) -- 93.8% chance to OHKO'
+                                desc: '(99.5 - 117.7%) -- 93.8% chance to OHKO (guaranteed OHKO after hail damage)'
                             }
                         }
                     },
@@ -243,6 +243,19 @@ describe('calc', function () {
                 var result = calculate(Pokemon('Zygarde'), Pokemon('Swellow'), Move('Thousand Arrows'));
                 expect(result.range()).toEqual([147, 174]);
                 expect(result.desc()).toBe('0 Atk Zygarde Thousand Arrows vs. 0 HP / 0 Def Swellow: 147-174 (56.3 - 66.6%) -- guaranteed 2HKO');
+            });
+        });
+        describe('IVs are shown if applicable', function () {
+            (0, helper_1.inGens)(3, 9, function (_a) {
+                var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
+                test("Gen ".concat(gen), function () {
+                    var ivs = { spa: 9, spd: 9, hp: 9 };
+                    var evs = { spa: 9, spd: 9, hp: 9 };
+                    var result = calculate(Pokemon('Mew', { ivs: ivs }), Pokemon('Mew', { evs: evs }), Move('Psychic'));
+                    expect(result.desc()).toBe('0 SpA 9 IVs Mew Psychic vs. 9 HP / 9 SpD Mew: 43-51 (12.5 - 14.8%) -- possible 7HKO');
+                    result = calculate(Pokemon('Mew', { evs: evs }), Pokemon('Mew', { ivs: ivs }), Move('Psychic'));
+                    expect(result.desc()).toBe('9 SpA Mew Psychic vs. 0 HP 9 IVs / 0 SpD 9 IVs Mew: 54-64 (16.9 - 20%) -- possible 5HKO');
+                });
             });
         });
         (0, helper_1.inGens)(4, 9, function (_a) {
@@ -291,6 +304,29 @@ describe('calc', function () {
                 expect(result.range()).toEqual([84, 102]);
                 expect(result.desc()).toBe('0 Atk Abomasnow Ice Shard vs. 0 HP / 0 Def Multiscale Dragonite: 84-102 (26 - 31.5%) -- guaranteed 4HKO');
             });
+            describe('Weight', function () {
+                describe('Heavy Metal', function () {
+                    function testBP(ability) {
+                        return calculate(Pokemon('Simisage', { ability: ability }), Pokemon('Simisear', { ability: 'Heavy Metal' }), Move('Grass Knot')).rawDesc.moveBP;
+                    }
+                    it('should double the weight of a Pokemon', function () { return expect(testBP('Gluttony')).toBe(80); });
+                    it('should be negated by Mold Breaker', function () { return expect(testBP('Mold Breaker')).toBe(60); });
+                });
+                describe('Light Metal', function () {
+                    function testBP(ability) {
+                        return calculate(Pokemon('Simisage', { ability: ability }), Pokemon('Registeel', { ability: 'Light Metal' }), Move('Grass Knot')).rawDesc.moveBP;
+                    }
+                    it('should halve the weight of a Pokemon', function () { return expect(testBP('Gluttony')).toBe(100); });
+                    it('should be negated by Mold Breaker', function () { return expect(testBP('Mold Breaker')).toBe(120); });
+                });
+                describe('Float Stone', function () {
+                    function testBP(ability) {
+                        return calculate(Pokemon('Simisage', { ability: 'Gluttony' }), Pokemon('Registeel', { ability: ability, item: 'Float Stone' }), Move('Grass Knot')).rawDesc.moveBP;
+                    }
+                    it('should halve the weight of a Pokemon', function () { return expect(testBP()).toBe(100); });
+                    it('should stack with Light Metal', function () { return expect(testBP('Light Metal')).toBe(80); });
+                });
+            });
         });
         (0, helper_1.inGen)(8, function (_a) {
             var gen = _a.gen, Pokemon = _a.Pokemon;
@@ -321,7 +357,7 @@ describe('calc', function () {
                 var result = calculate(Mewtwo, Milotic, Psystrike, field);
                 if (gen < 8) {
                     expect(result.range()).toEqual([331, 391]);
-                    expect(result.desc()).toBe('+2 252 SpA Mewtwo Psystrike vs. 248 HP / 184+ Def Marvel Scale Milotic in Psychic Terrain: 331-391 (84.2 - 99.4%) -- guaranteed 2HKO after burn damage');
+                    expect(result.desc()).toBe('+2 252 SpA Mewtwo Psystrike vs. 248 HP / 184+ Def Marvel Scale Milotic in Psychic Terrain: 331-391 (84.2 - 99.4%) -- 37.5% chance to OHKO after burn damage');
                 }
                 else {
                     expect(result.range()).toEqual([288, 339]);
@@ -392,14 +428,14 @@ describe('calc', function () {
                     item: 'White Herb'
                 }), Move('Icicle Spear'));
                 expect(result.range()).toEqual([89, 108]);
-                expect(result.desc()).toBe('0 Atk Mamoswine Icicle Spear (3 hits) vs. 0 HP / 0 Def White Herb Weak Armor Skarmory: 89-108 (32.8 - 39.8%) -- approx. 100% chance to 3HKO');
+                expect(result.desc()).toBe('0 Atk Mamoswine Icicle Spear (3 hits) vs. 0 HP / 0 Def White Herb Weak Armor Skarmory: 89-108 (32.8 - 39.8%) -- approx. 99.9% chance to 3HKO');
                 result = calculate(Pokemon('Mamoswine'), Pokemon('Skarmory', {
                     ability: 'Weak Armor',
                     item: 'White Herb',
                     boosts: { def: 2 }
                 }), Move('Icicle Spear'));
                 expect(result.range()).toEqual([56, 69]);
-                expect(result.desc()).toBe('0 Atk Mamoswine Icicle Spear (3 hits) vs. +2 0 HP / 0 Def Weak Armor Skarmory: 56-69 (20.6 - 25.4%) -- approx. 0% chance to 4HKO');
+                expect(result.desc()).toBe('0 Atk Mamoswine Icicle Spear (3 hits) vs. +2 0 HP / 0 Def Weak Armor Skarmory: 56-69 (20.6 - 25.4%) -- approx. 0.1% chance to 4HKO');
                 result = calculate(Pokemon('Mamoswine', {
                     ability: 'Unaware'
                 }), Pokemon('Skarmory', {
@@ -447,6 +483,102 @@ describe('calc', function () {
                 }), Move('Water Shuriken'));
                 expect(result.range()).toEqual([176, 210]);
                 expect(result.desc()).toBe('0 SpA Greninja Water Shuriken (15 BP) (3 hits) vs. 0 HP / 0 SpD Luminous Moss Contrary Gliscor: 176-210 (60.4 - 72.1%) -- approx. 2HKO');
+            });
+        });
+        (0, helper_1.inGens)(3, 9, function (_a) {
+            var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
+            test("KOed Pokemon don't receive HP recovery after 5+ turns (gen ".concat(gen, ")"), function () {
+                var chansey = Pokemon('Chansey', {
+                    level: 25
+                });
+                var mew = Pokemon('Mew', {
+                    level: 30,
+                    item: 'Leftovers',
+                    ivs: { hp: 0 }
+                });
+                var seismicToss = Move('Seismic Toss');
+                var result = calculate(chansey, mew, seismicToss);
+                expect(result.damage).toBe(25);
+                expect(result.desc()).toBe('Lvl 25 Chansey Seismic Toss vs. Lvl 30 0 HP 0 IVs Mew: 25-25 (25 - 25%) -- guaranteed 5HKO after Leftovers recovery');
+            });
+        });
+        (0, helper_1.inGens)(3, 9, function (_a) {
+            var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
+            test("KOed Pokemon don't receive HP recovery after 1-4 turns (gen ".concat(gen, ")"), function () {
+                var chansey = Pokemon('Chansey', {
+                    level: 55
+                });
+                var mew = Pokemon('Mew', {
+                    level: 30,
+                    item: 'Leftovers',
+                    ivs: { hp: 0 }
+                });
+                var seismicToss = Move('Seismic Toss');
+                var result = calculate(chansey, mew, seismicToss);
+                expect(result.damage).toBe(55);
+                expect(result.desc()).toBe('Lvl 55 Chansey Seismic Toss vs. Lvl 30 0 HP 0 IVs Mew: 55-55 (55 - 55%) -- guaranteed 2HKO after Leftovers recovery');
+            });
+        });
+        (0, helper_1.inGens)(3, 9, function (_a) {
+            var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
+            test("End of turn damage is calculated correctly after 5+ turns (gen ".concat(gen, ")"), function () {
+                var chansey = Pokemon('Chansey', {
+                    level: 1
+                });
+                var mew = Pokemon('Mew', {
+                    level: 30,
+                    status: 'tox',
+                    toxicCounter: 1,
+                    ivs: { hp: 0 }
+                });
+                var seismicToss = Move('Seismic Toss');
+                var result = calculate(chansey, mew, seismicToss);
+                expect(result.damage).toBe(1);
+                expect(result.desc()).toBe('Lvl 1 Chansey Seismic Toss vs. Lvl 30 0 HP 0 IVs Mew: 1-1 (1 - 1%) -- guaranteed 6HKO after toxic damage');
+            });
+        });
+        (0, helper_1.inGens)(3, 9, function (_a) {
+            var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move, Field = _a.Field;
+            test("End of turn damage is calculated correctly after 1-4 turns (gen ".concat(gen, ")"), function () {
+                var field = Field({
+                    weather: 'Sand',
+                    defenderSide: {
+                        isSeeded: true
+                    }
+                });
+                var chansey = Pokemon('Chansey', {
+                    level: 1
+                });
+                var mew = Pokemon('Mew', {
+                    level: 30,
+                    status: 'tox',
+                    toxicCounter: 1,
+                    ivs: { hp: 0 }
+                });
+                var seismicToss = Move('Seismic Toss');
+                var result = calculate(chansey, mew, seismicToss, field);
+                expect(result.damage).toBe(1);
+                expect(result.desc()).toBe('Lvl 1 Chansey Seismic Toss vs. Lvl 30 0 HP 0 IVs Mew: 1-1 (1 - 1%) -- guaranteed 4HKO after sandstorm damage, Leech Seed damage, and toxic damage');
+            });
+        });
+        (0, helper_1.inGens)(3, 9, function (_a) {
+            var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move, Field = _a.Field;
+            test("End of turn damage is calculated correctly on the first turn (gen ".concat(gen, ")"), function () {
+                var field = Field({
+                    weather: 'Sand'
+                });
+                var chansey = Pokemon('Chansey', {
+                    level: 90
+                });
+                var mew = Pokemon('Mew', {
+                    level: 30,
+                    status: 'brn',
+                    ivs: { hp: 0 }
+                });
+                var seismicToss = Move('Seismic Toss');
+                var result = calculate(chansey, mew, seismicToss, field);
+                expect(result.damage).toBe(90);
+                expect(result.desc()).toBe('Lvl 90 Chansey Seismic Toss vs. Lvl 30 0 HP 0 IVs Mew: 90-90 (90 - 90%) -- guaranteed OHKO after sandstorm damage and burn damage');
             });
         });
     });
@@ -727,7 +859,7 @@ describe('calc', function () {
                 var result = calculate(abomasnow, hoopa, Move('Blizzard'), field);
                 expect(result.range()).toEqual([50, 59]);
                 expect(result.desc()).toBe('0 SpA Abomasnow Helping Hand Blizzard vs. 32 HP / 0 SpD Hoopa-Unbound through Light Screen with an ally\'s Friend Guard: 50-59 (16.1 - 19%)' +
-                    ' -- 91.4% chance to 3HKO after Stealth Rock, 1 layer of Spikes, hail damage, Leech Seed damage, and Grassy Terrain recovery');
+                    ' -- guaranteed 3HKO after Stealth Rock, 1 layer of Spikes, hail damage, Leech Seed damage, and Grassy Terrain recovery');
             });
             test('Wring Out', function () {
                 var smeargle = Pokemon('Smeargle', { level: 50, ability: 'Technician' });
@@ -830,7 +962,7 @@ describe('calc', function () {
                 var blizzard = Move('Blizzard');
                 var hail = Field({ weather: 'Hail' });
                 var result = calculate(abomasnow, deerling, blizzard, hail);
-                expect(result.desc()).toBe('Lvl 55 252 SpA Choice Specs Abomasnow Blizzard vs. 36 HP / 0 SpD Deerling: 236-278 (87.4 - 102.9%) -- 25% chance to OHKO');
+                expect(result.desc()).toBe('Lvl 55 252 SpA Choice Specs Abomasnow Blizzard vs. 36 HP / 0 SpD Deerling: 236-278 (87.4 - 102.9%) -- 25% chance to OHKO (56.3% chance to OHKO after hail damage)');
             });
             test('% chance to OHKO with Leftovers', function () {
                 var kyurem = Pokemon('Kyurem', {
@@ -960,6 +1092,66 @@ describe('calc', function () {
                 });
                 var result = calculate(attacker, defender, Move('Pursuit'), field);
                 expect(result.desc()).toBe("0 Atk Weavile with an ally's Flower Gift Power Spot boosted switching boosted Pursuit (80 BP) vs. 0 HP / 0 Def Vulpix in Sun: 399-469 (183.8 - 216.1%) -- guaranteed OHKO");
+            });
+            test('Wind Rider should give an Attack boost in Tailwind', function () {
+                var attacker = Pokemon('Brambleghast', { 'ability': 'Wind Rider' });
+                var defender = Pokemon('Brambleghast', { 'ability': 'Wind Rider' });
+                var field = Field({
+                    attackerSide: {
+                        isTailwind: true
+                    }
+                });
+                var result = calculate(attacker, defender, Move('Power Whip'), field);
+                expect(attacker.boosts.atk).toBe(0);
+                expect(result.attacker.boosts.atk).toBe(1);
+            });
+            describe('Tera Stellar', function () {
+                var terastal = Pokemon('Arceus', { teraType: 'Stellar' });
+                var control = Pokemon('Arceus');
+                test('should only be displayed on defender for Stellar attacks', function () {
+                    expect(calculate(control, terastal, Move('Tera Blast'))
+                        .rawDesc
+                        .defenderTera).toBeUndefined();
+                    expect(calculate(terastal, terastal, Move('Tera Blast'))
+                        .rawDesc
+                        .defenderTera).toBeDefined();
+                    expect(calculate(terastal, terastal, Move('Tera Blast', { isStellarFirstUse: true }))
+                        .rawDesc
+                        .defenderTera).toBeDefined();
+                    expect(calculate(control, terastal, Move('Tera Blast', { isStellarFirstUse: true }))
+                        .rawDesc
+                        .defenderTera).toBeUndefined();
+                });
+                test('should not be displayed for non-boosted attacks', function () { return expect(calculate(terastal, control, Move('Judgment', { isStellarFirstUse: false }))
+                    .rawDesc
+                    .attackerTera).toBeUndefined(); });
+                test('should distinguish between first use for Tera Blast', function () {
+                    var result = [true, false].map(function (isStellarFirstUse) {
+                        var _ = [];
+                        for (var _i = 1; _i < arguments.length; _i++) {
+                            _[_i - 1] = arguments[_i];
+                        }
+                        return calculate(terastal, control, Move('Tera Blast', { isStellarFirstUse: isStellarFirstUse }))
+                            .rawDesc
+                            .isStellarFirstUse;
+                    });
+                    expect(result[0]).not.toEqual(result[1]);
+                });
+            });
+        });
+        describe('Descriptions', function () {
+            (0, helper_1.inGen)(9, function (_a) {
+                var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
+                test('displayed chances should not round to 100%', function () {
+                    var result = calculate(Pokemon('Xerneas', { item: 'Choice Band', nature: 'Adamant', evs: { atk: 252 } }), Pokemon('Necrozma-Dusk-Mane', { nature: 'Impish', evs: { hp: 252, def: 252 } }), Move('Close Combat'));
+                    expect(result.kochance().chance).toBeGreaterThanOrEqual(0.9995);
+                    expect(result.kochance().text).toBe('99.9% chance to 3HKO');
+                });
+                test('displayed chances should not round to 0%', function () {
+                    var result = calculate(Pokemon('Deoxys-Attack', { evs: { spa: 44 } }), Pokemon('Blissey', { nature: 'Calm', evs: { hp: 252, spd: 252 } }), Move('Psycho Boost'));
+                    expect(result.kochance().chance).toBeLessThan(0.005);
+                    expect(result.kochance().text).toBe('0.1% chance to 4HKO');
+                });
             });
         });
     });

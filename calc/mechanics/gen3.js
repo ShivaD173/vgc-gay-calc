@@ -52,6 +52,12 @@ function calculateADV(gen, attacker, defender, move, field) {
         desc.isProtected = true;
         return result;
     }
+    if (move.name === 'Pain Split') {
+        var average = Math.floor((attacker.curHP() + defender.curHP()) / 2);
+        var damage = Math.max(0, defender.curHP() - average);
+        result.damage = damage;
+        return result;
+    }
     if (move.named('Weather Ball')) {
         move.type =
             field.hasWeather('Sun') ? 'Fire'
@@ -109,7 +115,7 @@ function calculateADV(gen, attacker, defender, move, field) {
         desc.defenderAbility = defender.ability;
         return result;
     }
-    desc.HPEVs = "".concat(defender.evs.hp, " HP");
+    desc.HPEVs = (0, util_1.getStatDescriptionText)(gen, defender, 'hp');
     var fixedDamage = (0, util_1.handleFixedDamageMoves)(attacker, move);
     if (fixedDamage) {
         result.damage = fixedDamage;
@@ -227,7 +233,7 @@ function calculateAttackADV(gen, attacker, defender, move, desc, isCritical) {
     if (isCritical === void 0) { isCritical = false; }
     var isPhysical = move.category === 'Physical';
     var attackStat = isPhysical ? 'atk' : 'spa';
-    desc.attackEVs = (0, util_1.getEVDescriptionText)(gen, attacker, attackStat, attacker.nature);
+    desc.attackEVs = (0, util_1.getStatDescriptionText)(gen, attacker, attackStat, attacker.nature);
     var at = attacker.rawStats[attackStat];
     if (isPhysical && attacker.hasAbility('Huge Power', 'Pure Power')) {
         at *= 2;
@@ -274,7 +280,7 @@ function calculateDefenseADV(gen, defender, move, desc, isCritical) {
     if (isCritical === void 0) { isCritical = false; }
     var isPhysical = move.category === 'Physical';
     var defenseStat = isPhysical ? 'def' : 'spd';
-    desc.defenseEVs = (0, util_1.getEVDescriptionText)(gen, defender, defenseStat, defender.nature);
+    desc.defenseEVs = (0, util_1.getStatDescriptionText)(gen, defender, defenseStat, defender.nature);
     var df = defender.rawStats[defenseStat];
     if (!isPhysical && defender.hasItem('Soul Dew') && defender.named('Latios', 'Latias')) {
         df = Math.floor(df * 1.5);

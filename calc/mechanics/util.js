@@ -172,12 +172,15 @@ function getFinalSpeed(gen, pokemon, field, side) {
     return Math.max(0, speed);
 }
 exports.getFinalSpeed = getFinalSpeed;
-function getMoveEffectiveness(gen, move, type, isGhostRevealed, isGravity, isRingTarget) {
+function getMoveEffectiveness(gen, move, type, isGhostRevealed, isGravity, isRingTarget, isDauntless) {
     if ((isRingTarget || isGhostRevealed) && type === 'Ghost' && move.hasType('Normal', 'Fighting')) {
         return 1;
     }
     else if ((isRingTarget || isGravity) && type === 'Flying' && move.hasType('Ground')) {
         return 1;
+    }
+    else if ((isDauntless) && type === 'Dark' && move.hasType('Psychic')) {
+        return 0.5;
     }
     else if (move.named('Freeze-Dry') && type === 'Water') {
         return 2;
@@ -305,6 +308,12 @@ function checkDauntlessShield(source, gen) {
     }
 }
 exports.checkDauntlessShield = checkDauntlessShield;
+function checkWindRider(source, attackingSide) {
+    if (source.hasAbility('Wind Rider') && attackingSide.isTailwind) {
+        source.boosts.atk = Math.min(6, source.boosts.atk + 1);
+    }
+}
+exports.checkWindRider = checkWindRider;
 function checkEmbody(source, gen) {
     if (gen.num < 9)
         return;
@@ -348,6 +357,7 @@ function checkSeedBoost(pokemon, field) {
                     ? Math.max(-6, pokemon.boosts.spd - 1)
                     : Math.min(6, pokemon.boosts.spd + 1);
             }
+            pokemon.item = '';
         }
     }
 }
@@ -571,17 +581,28 @@ function getShellSideArmCategory(source, target) {
     return physicalDamage > specialDamage ? 'Physical' : 'Special';
 }
 exports.getShellSideArmCategory = getShellSideArmCategory;
-function getWeightFactor(pokemon) {
-    return pokemon.hasAbility('Heavy Metal') ? 2
-        : (pokemon.hasAbility('Light Metal') || pokemon.hasItem('Float Stone')) ? 0.5 : 1;
+function getWeight(pokemon, desc, role) {
+    var weightHG = pokemon.weightkg * 10;
+    var abilityFactor = pokemon.hasAbility('Heavy Metal') ? 2
+        : pokemon.hasAbility('Light Metal') ? 0.5
+            : 1;
+    if (abilityFactor !== 1) {
+        weightHG = Math.max(Math.trunc(weightHG * abilityFactor), 1);
+        desc["".concat(role, "Ability")] = pokemon.ability;
+    }
+    if (pokemon.hasItem('Float Stone')) {
+        weightHG = Math.max(Math.trunc(weightHG * 0.5), 1);
+        desc["".concat(role, "Item")] = pokemon.item;
+    }
+    return weightHG / 10;
 }
-exports.getWeightFactor = getWeightFactor;
+exports.getWeight = getWeight;
 function getStabMod(pokemon, move, desc) {
     var stabMod = 4096;
     if (pokemon.hasOriginalType(move.type)) {
         stabMod += 2048;
     }
-    else if (pokemon.hasAbility('Protean', 'Libero') && !pokemon.teraType) {
+    else if (pokemon.hasAbility('Protean', 'Libero', 'Ancestor') && !pokemon.teraType) {
         stabMod += 2048;
         desc.attackerAbility = pokemon.ability;
     }
@@ -637,16 +658,20 @@ function countBoosts(gen, boosts) {
     return sum;
 }
 exports.countBoosts = countBoosts;
-function getEVDescriptionText(gen, pokemon, stat, natureName) {
+function getStatDescriptionText(gen, pokemon, stat, natureName) {
     var nature = gen.natures.get((0, util_1.toID)(natureName));
-    return (pokemon.evs[stat] +
-        (nature.plus === nature.minus ? ''
+    var desc = pokemon.evs[stat] +
+        (stat === 'hp' || nature.plus === nature.minus ? ''
             : nature.plus === stat ? '+'
                 : nature.minus === stat ? '-'
                     : '') + ' ' +
-        stats_1.Stats.displayStat(stat));
+        stats_1.Stats.displayStat(stat);
+    var iv = pokemon.ivs[stat];
+    if (iv !== 31)
+        desc += " ".concat(iv, " IVs");
+    return desc;
 }
-exports.getEVDescriptionText = getEVDescriptionText;
+exports.getStatDescriptionText = getStatDescriptionText;
 function handleFixedDamageMoves(attacker, move) {
     if (move.named('Seismic Toss', 'Night Shade')) {
         return attacker.level;

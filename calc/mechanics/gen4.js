@@ -57,6 +57,12 @@ function calculateDPP(gen, attacker, defender, move, field) {
         desc.isProtected = true;
         return result;
     }
+    if (move.name === 'Pain Split') {
+        var average = Math.floor((attacker.curHP() + defender.curHP()) / 2);
+        var damage_1 = Math.max(0, defender.curHP() - average);
+        result.damage = damage_1;
+        return result;
+    }
     if (attacker.hasAbility('Mold Breaker')) {
         defender.ability = '';
         desc.attackerAbility = attacker.ability;
@@ -145,7 +151,7 @@ function calculateDPP(gen, attacker, defender, move, field) {
         desc.defenderAbility = defender.ability;
         return result;
     }
-    desc.HPEVs = "".concat(defender.evs.hp, " HP");
+    desc.HPEVs = (0, util_1.getStatDescriptionText)(gen, defender, 'hp');
     var fixedDamage = (0, util_1.handleFixedDamageMoves)(attacker, move);
     if (fixedDamage) {
         result.damage = fixedDamage;
@@ -397,7 +403,7 @@ function calculateAttackDPP(gen, attacker, defender, move, field, desc, isCritic
     if (isCritical === void 0) { isCritical = false; }
     var isPhysical = move.category === 'Physical';
     var attackStat = isPhysical ? 'atk' : 'spa';
-    desc.attackEVs = (0, util_1.getEVDescriptionText)(gen, attacker, attackStat, attacker.nature);
+    desc.attackEVs = (0, util_1.getStatDescriptionText)(gen, attacker, attackStat, attacker.nature);
     var attack;
     var attackBoost = attacker.boosts[attackStat];
     var rawAttack = attacker.rawStats[attackStat];
@@ -427,11 +433,6 @@ function calculateAttackDPP(gen, attacker, defender, move, field, desc, isCritic
         desc.attackerAbility = attacker.ability;
         desc.weather = field.weather;
     }
-    else if (field.attackerSide.isFlowerGift && field.hasWeather('Sun') && isPhysical) {
-        attack = Math.floor(attack * 1.5);
-        desc.weather = field.weather;
-        desc.isFlowerGiftAttacker = true;
-    }
     else if ((isPhysical &&
         (attacker.hasAbility('Hustle') || (attacker.hasAbility('Guts') && attacker.status)) ||
         (!isPhysical && attacker.abilityOn && attacker.hasAbility('Plus', 'Minus')))) {
@@ -441,6 +442,12 @@ function calculateAttackDPP(gen, attacker, defender, move, field, desc, isCritic
     else if (isPhysical && attacker.hasAbility('Slow Start') && attacker.abilityOn) {
         attack = Math.floor(attack / 2);
         desc.attackerAbility = attacker.ability;
+    }
+    if (field.attackerSide.isFlowerGift && !attacker.hasAbility('Flower Gift') &&
+        field.hasWeather('Sun') && isPhysical) {
+        attack = Math.floor(attack * 1.5);
+        desc.weather = field.weather;
+        desc.isFlowerGiftAttacker = true;
     }
     if ((isPhysical ? attacker.hasItem('Choice Band') : attacker.hasItem('Choice Specs')) ||
         (!isPhysical && attacker.hasItem('Soul Dew') && attacker.named('Latios', 'Latias'))) {
@@ -460,7 +467,7 @@ function calculateDefenseDPP(gen, attacker, defender, move, field, desc, isCriti
     if (isCritical === void 0) { isCritical = false; }
     var isPhysical = move.category === 'Physical';
     var defenseStat = isPhysical ? 'def' : 'spd';
-    desc.defenseEVs = (0, util_1.getEVDescriptionText)(gen, defender, defenseStat, defender.nature);
+    desc.defenseEVs = (0, util_1.getStatDescriptionText)(gen, defender, defenseStat, defender.nature);
     var defense;
     var defenseBoost = defender.boosts[defenseStat];
     var rawDefense = defender.rawStats[defenseStat];

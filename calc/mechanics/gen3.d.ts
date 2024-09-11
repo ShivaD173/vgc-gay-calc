@@ -1,8 +1,8 @@
-import { Generation } from '../data/interface';
-import { RawDesc } from '../desc';
-import { Pokemon } from '../pokemon';
-import { Move } from '../move';
-import { Field } from '../field';
+import type { Generation } from '../data/interface';
+import type { RawDesc } from '../desc';
+import type { Pokemon } from '../pokemon';
+import type { Move } from '../move';
+import type { Field } from '../field';
 import { Result } from '../result';
 export declare function calculateADV(gen: Generation, attacker: Pokemon, defender: Pokemon, move: Move, field: Field): Result;
 export declare function calculateBasePowerADV(attacker: Pokemon, defender: Pokemon, move: Move, desc: RawDesc, hit?: number): number;

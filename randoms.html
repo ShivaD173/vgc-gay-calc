@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <title>Pok&eacute;mon Damage Calculator</title>
     <link type="text/css" rel="stylesheet" href="./js/vendor/select2/select2.css" />
-    <link type="text/css" rel="stylesheet" href="./css/main.css?fb49ecce" />
+    <link type="text/css" rel="stylesheet" href="./css/main.css?0357a0ec" />
     <link type="text/css" rel="stylesheet" href="./css/vendor/bootstrap.css" />
     <link type="text/css" rel="stylesheet" href="./css/dark-theme.css" id="dark-theme-styles">
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -77,7 +77,8 @@
             <input class="mode visually-hidden" type="radio" name="mode" id="one-vs-one" /><label class="btn btn-left btn-wide" for="one-vs-one">One vs One</label>
             <input class="mode visually-hidden" type="radio" name="mode" id="one-vs-all" /><label class="btn btn-mid btn-wide gen-specific g3 g4 g5 g6 g7 g8 g9" for="one-vs-all">One vs All</label>
             <input class="mode visually-hidden" type="radio" name="mode" id="all-vs-one" /><label class="btn btn-mid btn-wide gen-specific g3 g4 g5 g6 g7 g8 g9" for="all-vs-one">All vs One</label>
-            <input class="mode visually-hidden" type="radio" name="mode" id="randoms" checked="checked" /><label class="btn btn-right btn-xwide" for="randoms">Random Battles</label>
+            <input class="mode visually-hidden" type="radio" name="mode" id="randoms" checked="checked" /><label class="btn btn-mid btn-xwide" for="randoms">Random Battles</label>
+            <input class="mode visually-hidden" type="radio" name="mode" id="oms" /><label class="btn btn-right btn-xwide" for="oms">Other Metagames</label>
         </span>
     </div>
     <hr />
@@ -499,7 +500,7 @@
                         <div>Tera Type Pool</div>
                         <small class="extraSetTeraTypes"></small>
                     </div>
-                    <div class="role-pool gen-specific g3 g4 g5 g6 g7 g9">
+                    <div class="role-pool gen-specific g2 g3 g4 g5 g6 g7 g9">
                         <div>Role Pool</div>
                         <small class="extraSetRoles"></small>
                     </div>
@@ -1369,7 +1370,7 @@
                         <div>Tera Type Pool</div>
                         <small class="extraSetTeraTypes"></small>
                     </div>
-                    <div class="role-pool gen-specific g3 g4 g5 g6 g7 g9">
+                    <div class="role-pool gen-specific g2 g3 g4 g5 g6 g7 g9">
                         <div>Role Pool</div>
                         <small class="extraSetRoles"></small>
                     </div>
@@ -1589,9 +1590,13 @@
     </script>
     <script type="text/javascript" src="./calc/util.js?51463f0d"></script>
     <script type="text/javascript" src="./calc/stats.js?a9e37d1a"></script>
-    <script type="text/javascript" src="./calc/data/species.js?1ab1e33c"></script>
+    <script type="text/javascript" src="./calc/data/species.js?c5670715"></script>
     <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen9randombattle.js?"></script>
+    <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen9randomdoublesbattle.js?"></script>
+    <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen9babyrandombattle.js?"></script>
     <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen8randombattle.js?"></script>
+    <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen8randomdoublesbattle.js?"></script>
+    <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen8bdsprandombattle.js?"></script>
     <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen7randombattle.js?"></script>
     <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen6randombattle.js?"></script>
     <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen5randombattle.js?"></script>
@@ -1601,28 +1606,28 @@
     <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen1randombattle.js?"></script>
     <script type="text/javascript" src="./calc/data/types.js?a641e10b"></script>
     <script type="text/javascript" src="./calc/data/natures.js?28612810"></script>
-    <script type="text/javascript" src="./calc/data/abilities.js?6dd8d9ed"></script>
-    <script type="text/javascript" src="./calc/data/moves.js?7d542e20"></script>
+    <script type="text/javascript" src="./calc/data/abilities.js?a2518ef4"></script>
+    <script type="text/javascript" src="./calc/data/moves.js?d4fe4298"></script>
     <script type="text/javascript" src="./calc/data/items.js?6a3e6bae"></script>
     <script type="text/javascript" src="./calc/data/index.js?abecbd82"></script>
-    <script type="text/javascript" src="./calc/move.js?8b27dcd1"></script>
+    <script type="text/javascript" src="./calc/move.js?0f88d702"></script>
     <script type="text/javascript" src="./calc/pokemon.js?1e459e1e"></script>
     <script type="text/javascript" src="./calc/field.js?bbf04408"></script>
     <script type="text/javascript" src="./calc/items.js?067e42a4"></script>
-    <script type="text/javascript" src="./calc/mechanics/util.js?95e030a7"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen789.js?70898736"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen56.js?34ac2877"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen4.js?c8ac642f"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen3.js?d9dcf09a"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen12.js?277936f0"></script>
+    <script type="text/javascript" src="./calc/mechanics/util.js?e8a6963c"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen789.js?7063dc9a"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen56.js?86f0514c"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen4.js?a1460bc2"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen3.js?528d68f2"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen12.js?ab68be6d"></script>
     <script type="text/javascript" src="./calc/calc.js?40a2d9b1"></script>
-    <script type="text/javascript" src="./calc/desc.js?aa398f68"></script>
+    <script type="text/javascript" src="./calc/desc.js?9beae9f0"></script>
     <script type="text/javascript" src="./calc/result.js?9f8881b5"></script>
     <script type="text/javascript" src="./calc/adaptable.js?92e49194"></script>
     <script type="text/javascript" src="./calc/index.js?0b1745b9"></script>
-    <script type="text/javascript" src="./js/shared_controls.js?39df0a7b"></script>
-    <script type="text/javascript" src="./js/index_randoms_controls.js?8efdf1b2"></script>
-    <script type="text/javascript" src="./js/moveset_import.js?19460119"></script>
+    <script type="text/javascript" src="./js/shared_controls.js?01b1d7f5"></script>
+    <script type="text/javascript" src="./js/index_randoms_controls.js?3c5ac8c2"></script>
+    <script type="text/javascript" src="./js/moveset_import.js?e6932a42"></script>
 </div>
 
 <div class="credits">Created by Honko, maintained by Austin and Kris
@@ -1630,7 +1635,7 @@
     <li><a href="https://www.smogon.com/forums/threads/pok%C3%A9mon-showdown-damage-calculator.3593546/" class="links-lighten" target="_blank">Bug Reports</a></li>
     <li><a href="https://github.com/smogon/damage-calc" class="links-lighten" target="_blank">GitHub repository</a></li></ul>
     <button type="button" id="dark-theme-toggle"></button>
-    <script type="text/javascript" src="./js/dark-theme-toggle.js?054b266a"></script>
+    <script type="text/javascript" src="./js/dark-theme-toggle.js?123be3bd"></script>
 </div>
 
 </body>

@@ -1,5 +1,5 @@
-import * as I from './data/interface';
-import { State } from './state';
+import type * as I from './data/interface';
+import type { State } from './state';
 export declare class Pokemon implements State.Pokemon {
     gen: I.Generation;
     name: I.SpeciesName;

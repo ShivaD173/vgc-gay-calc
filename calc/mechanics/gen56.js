@@ -39,6 +39,12 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         desc.isProtected = true;
         return result;
     }
+    if (move.name === 'Pain Split') {
+        var average = Math.floor((attacker.curHP() + defender.curHP()) / 2);
+        var damage_1 = Math.max(0, defender.curHP() - average);
+        result.damage = damage_1;
+        return result;
+    }
     if (attacker.hasAbility('Mold Breaker', 'Teravolt', 'Turboblaze')) {
         defender.ability = '';
         desc.attackerAbility = attacker.ability;
@@ -176,7 +182,7 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         desc.terrain = field.terrain;
         return result;
     }
-    desc.HPEVs = "".concat(defender.evs.hp, " HP");
+    desc.HPEVs = (0, util_2.getStatDescriptionText)(gen, defender, 'hp');
     var fixedDamage = (0, util_2.handleFixedDamageMoves)(attacker, move);
     if (fixedDamage) {
         if (attacker.hasAbility('Parental Bond')) {
@@ -305,7 +311,7 @@ function calculateBasePowerBWXY(gen, attacker, defender, move, field, hasAteAbil
             break;
         case 'Low Kick':
         case 'Grass Knot':
-            var w = defender.weightkg * (0, util_2.getWeightFactor)(defender);
+            var w = (0, util_2.getWeight)(defender, desc, 'defender');
             basePower = w >= 200 ? 120 : w >= 100 ? 100 : w >= 50 ? 80 : w >= 25 ? 60 : w >= 10 ? 40 : 20;
             desc.moveBP = basePower;
             break;
@@ -315,8 +321,8 @@ function calculateBasePowerBWXY(gen, attacker, defender, move, field, hasAteAbil
             break;
         case 'Heavy Slam':
         case 'Heat Crash':
-            var wr = (attacker.weightkg * (0, util_2.getWeightFactor)(attacker)) /
-                (defender.weightkg * (0, util_2.getWeightFactor)(defender));
+            var wr = (0, util_2.getWeight)(attacker, desc, 'attacker') /
+                (0, util_2.getWeight)(defender, desc, 'defender');
             basePower = wr >= 5 ? 120 : wr >= 4 ? 100 : wr >= 3 ? 80 : wr >= 2 ? 60 : 40;
             desc.moveBP = basePower;
             break;
@@ -401,6 +407,9 @@ function calculateBasePowerBWXY(gen, attacker, defender, move, field, hasAteAbil
             break;
         default:
             basePower = move.bp;
+    }
+    if (basePower === 0) {
+        return 0;
     }
     var bpMods = calculateBPModsBWXY(gen, attacker, defender, move, field, desc, basePower, hasAteAbilityTypeChange, turnOrder);
     basePower = (0, util_2.OF16)(Math.max(1, (0, util_2.pokeRound)((basePower * (0, util_2.chainMods)(bpMods, 41, 2097152)) / 4096)));
@@ -570,8 +579,8 @@ function calculateAttackBWXY(gen, attacker, defender, move, field, desc, isCriti
     var attackStat = move.category === 'Special' ? 'spa' : 'atk';
     desc.attackEVs =
         move.named('Foul Play')
-            ? (0, util_2.getEVDescriptionText)(gen, defender, attackStat, defender.nature)
-            : (0, util_2.getEVDescriptionText)(gen, attacker, attackStat, attacker.nature);
+            ? (0, util_2.getStatDescriptionText)(gen, defender, attackStat, defender.nature)
+            : (0, util_2.getStatDescriptionText)(gen, attacker, attackStat, attacker.nature);
     if (attackSource.boosts[attackStat] === 0 ||
         (isCritical && attackSource.boosts[attackStat] < 0)) {
         attack = attackSource.rawStats[attackStat];
@@ -624,13 +633,6 @@ function calculateAtModsBWXY(attacker, defender, move, field, desc) {
         desc.attackerAbility = attacker.ability;
         desc.weather = field.weather;
     }
-    else if (field.attackerSide.isFlowerGift &&
-        field.hasWeather('Sun', 'Harsh Sunshine') &&
-        move.category === 'Physical') {
-        atMods.push(6144);
-        desc.weather = field.weather;
-        desc.isFlowerGiftAttacker = true;
-    }
     else if ((attacker.hasAbility('Defeatist') && attacker.curHP() <= attacker.maxHP() / 2) ||
         (attacker.hasAbility('Slow Start') && attacker.abilityOn && move.category === 'Physical')) {
         atMods.push(2048);
@@ -639,6 +641,14 @@ function calculateAtModsBWXY(attacker, defender, move, field, desc) {
     else if (attacker.hasAbility('Huge Power', 'Pure Power') && move.category === 'Physical') {
         atMods.push(8192);
         desc.attackerAbility = attacker.ability;
+    }
+    if (field.attackerSide.isFlowerGift &&
+        !attacker.hasAbility('Flower Gift') &&
+        field.hasWeather('Sun', 'Harsh Sunshine') &&
+        move.category === 'Physical') {
+        atMods.push(6144);
+        desc.weather = field.weather;
+        desc.isFlowerGiftAttacker = true;
     }
     if ((attacker.hasItem('Thick Club') &&
         attacker.named('Cubone', 'Marowak', 'Marowak-Alola') &&
@@ -666,7 +676,7 @@ function calculateDefenseBWXY(gen, attacker, defender, move, field, desc, isCrit
     var defense;
     var defenseStat = move.overrideDefensiveStat || move.category === 'Physical' ? 'def' : 'spd';
     var hitsPhysical = defenseStat === 'def';
-    desc.defenseEVs = (0, util_2.getEVDescriptionText)(gen, defender, defenseStat, defender.nature);
+    desc.defenseEVs = (0, util_2.getStatDescriptionText)(gen, defender, defenseStat, defender.nature);
     if (defender.boosts[defenseStat] === 0 ||
         (isCritical && defender.boosts[defenseStat] > 0) ||
         move.ignoreDefensive) {
