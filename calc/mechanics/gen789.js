@@ -56,7 +56,7 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
     }
     if (defender.teraType !== 'Stellar')
         desc.defenderTera = defender.teraType;
-    if (move.named('Photon Geyser', 'Light That Burns The Sky', 'Hydro Cannon', 'Blast Burn', 'Frenzy Plant') ||
+    if (move.named('Photon Geyser', 'Light That Burns The Sky', 'Hydro Cannon', 'Blast Burn', 'Frenzy Plant', 'Confusion') ||
         (move.named('Tera Blast') && attacker.teraType)) {
         move.category = attacker.stats.atk > attacker.stats.spa ? 'Physical' : 'Special';
     }
@@ -835,8 +835,6 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         field.hasWeather('Sand') && move.hasType('Rock', 'Ground', 'Steel')) ||
         (attacker.hasAbility('Punk Rock') && move.flags.sound) ||
         (attacker.hasAbility('Honey Gather') && move.named('Pollen Puff')) ||
-        (attacker.hasAbility('Full Metal Body') && move.hasType('Steel')) ||
-        (attacker.hasAbility('Shadow Shield') && move.hasType('Ghost')) ||
         (attacker.hasAbility('True Aurora') && move.named('Aurora Beam')) ||
         (attacker.hasAbility('Hammer Time') && move.name.toLowerCase().includes('hammer')) ||
         (attacker.hasAbility('Just the Tip') && move.name.toLowerCase().includes('drill')) ||
@@ -874,7 +872,7 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         move.target = 'allAdjacentFoes';
     }
     if (attacker.hasAbility('Triple Threat') && (move.hits === 1 || desc.attackerAbility === attacker.ability)) {
-        bpMods.push(1638);
+        bpMods.push(1366);
         move.hits = 3;
         desc.attackerAbility = attacker.ability;
     }
@@ -1289,6 +1287,10 @@ function calculateFinalModsSMSSSV(gen, attacker, defender, move, field, desc, is
         finalMods.push(6144);
         desc.attackerAbility = attacker.ability;
     }
+    else if (attacker.hasAbility('Turboblaze', 'Teravolt') && typeEffectiveness < 1) {
+        finalMods.push(6144);
+        desc.attackerAbility = attacker.ability;
+    }
     else if (attacker.hasAbility('Tinted Lens') && typeEffectiveness < 1) {
         finalMods.push(8192);
         desc.attackerAbility = attacker.ability;
@@ -1313,7 +1315,7 @@ function calculateFinalModsSMSSSV(gen, attacker, defender, move, field, desc, is
         finalMods.push(2048);
         desc.defenderAbility = defender.ability;
     }
-    if (defender.hasAbility('Fluffy') && move.flags.contact && !attacker.hasAbility('Long Reach')) {
+    if (defender.hasAbility('Fluffy', 'Full Metal Body') && move.flags.contact && !attacker.hasAbility('Long Reach')) {
         finalMods.push(2048);
         desc.defenderAbility = defender.ability;
     }
@@ -1330,7 +1332,7 @@ function calculateFinalModsSMSSSV(gen, attacker, defender, move, field, desc, is
         finalMods.push(3072);
         desc.isFriendGuard = true;
     }
-    if (defender.hasAbility('Fluffy') && move.hasType('Fire')) {
+    if (defender.hasAbility('Fluffy', 'Full Metal Body') && move.hasType('Fire')) {
         finalMods.push(8192);
         desc.defenderAbility = defender.ability;
     }

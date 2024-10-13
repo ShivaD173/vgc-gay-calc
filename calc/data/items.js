@@ -26,6 +26,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
     if (m) return m.call(o);
@@ -351,7 +376,7 @@ exports.MEGA_STONES = {
     Tyranitarite: 'Tyranitar',
     Venusaurite: 'Venusaur'
 };
-var XY = BW.concat([
+var XY = BW.concat(__spreadArray(__spreadArray([], __read(RBY), false), [
     'Assault Vest',
     'Blue Orb',
     'Fairy Gem',
@@ -364,7 +389,7 @@ var XY = BW.concat([
     'Safety Goggles',
     'Snowball',
     'Weakness Policy',
-].sort());
+], false).sort());
 var SM = XY.filter(function (i) { return i !== 'Old Amber'; }).concat([
     'Adrenaline Orb',
     'Aloraichium Z',
