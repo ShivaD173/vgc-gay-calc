@@ -742,6 +742,9 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         bpMods.push(6144);
         desc.moveBP = basePower * 1.5;
     }
+    else if (move.named('Diamond Storm') && (0, util_2.isGrounded)(attacker, field) && field.hasWeather('Sand')) {
+        move.target = 'allAdjacentFoes';
+    }
     else if ((move.named('Knock Off') && !resistedKnockOffDamage) ||
         (move.named('Misty Explosion') && (0, util_2.isGrounded)(attacker, field) && field.hasTerrain('Misty')) ||
         (move.named('Grav Apple') && field.isGravity)) {
@@ -827,6 +830,7 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         (attacker.hasAbility('Mega Launcher') && (move.flags.pulse || move.flags.bullet || move.name.endsWith('Cannon'))) ||
         (attacker.hasAbility('Analytic') &&
             (turnOrder !== 'first' || field.defenderSide.isSwitching === 'out')) ||
+        (attacker.hasAbility('Hammer Time') && move.name.toLowerCase().includes('hammer')) ||
         (attacker.hasAbility('Tough Claws') && move.flags.contact)) {
         bpMods.push(5325);
         desc.attackerAbility = attacker.ability;
@@ -836,7 +840,6 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         (attacker.hasAbility('Punk Rock') && move.flags.sound) ||
         (attacker.hasAbility('Honey Gather') && move.named('Pollen Puff')) ||
         (attacker.hasAbility('True Aurora') && move.named('Aurora Beam')) ||
-        (attacker.hasAbility('Hammer Time') && move.name.toLowerCase().includes('hammer')) ||
         (attacker.hasAbility('Just the Tip') && move.name.toLowerCase().includes('drill')) ||
         (attacker.hasAbility('Grass Pelt') && field.hasTerrain('Grassy'))) {
         bpMods.push(6144);
