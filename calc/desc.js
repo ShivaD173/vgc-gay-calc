@@ -100,7 +100,7 @@ function getRecoil(gen, attacker, defender, move, damage, notation) {
     var max = (typeof maxDamage === 'number' ? maxDamage : maxDamage[0] + maxDamage[1]) * move.hits;
     var recoil = [0, 0];
     var text = '';
-    var damageOverflow = minDamage > defender.curHP() || maxDamage > defender.curHP();
+    var damageOverflow = min > defender.curHP() || max > defender.curHP();
     if (move.recoil) {
         var mod = (move.recoil[0] / move.recoil[1]) * 100;
         var minRecoilDamage = void 0, maxRecoilDamage = void 0;
@@ -482,6 +482,12 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
             texts.push('burn damage');
         }
     }
+    else if (defender.hasStatus('frz')) {
+        if (!defender.hasAbility('Magic Guard')) {
+            damage -= Math.floor(defender.maxHP() / (gen.num === 1 || gen.num > 6 ? 16 : 8));
+            texts.push('frostbite damage');
+        }
+    }
     else if ((defender.hasStatus('slp') || defender.hasAbility('Comatose')) &&
         attacker.hasAbility('isBadDreams') &&
         !defender.hasAbility('Magic Guard')) {
@@ -720,6 +726,9 @@ function buildDescription(description, attacker, defender) {
     output = appendIfSet(output, description.rivalry);
     if (description.isBurned) {
         output += 'burned ';
+    }
+    if (description.isFrozen) {
+        output += 'frostbitten ';
     }
     if (description.alliesFainted) {
         output += Math.min(5, description.alliesFainted) +

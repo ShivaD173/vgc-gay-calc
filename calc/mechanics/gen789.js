@@ -56,9 +56,12 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
     }
     if (defender.teraType !== 'Stellar')
         desc.defenderTera = defender.teraType;
-    if (move.named('Photon Geyser', 'Light That Burns The Sky', 'Hydro Cannon', 'Blast Burn', 'Frenzy Plant', 'Confusion') ||
+    if (move.named('Photon Geyser', 'Light That Burns The Sky', 'Hydro Cannon', 'Blast Burn', 'Frenzy Plant', 'Confusion', 'Veevee Volley') ||
         (move.named('Tera Blast') && attacker.teraType)) {
         move.category = attacker.stats.atk > attacker.stats.spa ? 'Physical' : 'Special';
+    }
+    if (move.named('Veevee Volley')) {
+        move.type = attacker.types[0];
     }
     if (attacker.hasAbility("Ballin'") && move.flags.bullet) {
         move.category = attacker.stats.atk > attacker.stats.spa ? 'Physical' : 'Special';
@@ -415,6 +418,9 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
     }
     var preStellarStabMod = (0, util_2.getStabMod)(attacker, move, desc);
     var stabMod = (0, util_2.getStellarStabMod)(attacker, move, preStellarStabMod);
+    var applyFrz = attacker.hasStatus('frz') &&
+        move.category === 'Special';
+    desc.isFrozen = applyFrz;
     var applyBurn = attacker.hasStatus('brn') &&
         move.category === 'Physical' &&
         !attacker.hasAbility('Guts') &&
@@ -442,7 +448,7 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
     var damage = [];
     for (var i = 0; i < 16; i++) {
         damage[i] =
-            (0, util_2.getFinalDamage)(baseDamage, i, typeEffectiveness, applyBurn, stabMod, finalMod, protect);
+            (0, util_2.getFinalDamage)(baseDamage, i, typeEffectiveness, applyBurn || applyFrz, stabMod, finalMod, protect);
     }
     desc.attackBoost =
         move.named('Foul Play') ? defender.boosts[attackStat] : attacker.boosts[attackStat];
@@ -475,7 +481,7 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
             var newFinalMod = (0, util_2.chainMods)(newFinalMods, 41, 131072);
             var damageMultiplier = 0;
             damage = damage.map(function (affectedAmount) {
-                var newFinalDamage = (0, util_2.getFinalDamage)(newBaseDamage, damageMultiplier, typeEffectiveness, applyBurn, stabMod, newFinalMod, protect);
+                var newFinalDamage = (0, util_2.getFinalDamage)(newBaseDamage, damageMultiplier, typeEffectiveness, applyBurn || applyFrz, stabMod, newFinalMod, protect);
                 damageMultiplier++;
                 return affectedAmount + newFinalDamage;
             });
@@ -925,15 +931,11 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         bpMods.push(5325);
         desc.attackerItem = attacker.item;
     }
-    else if ((((attacker.hasItem('Adamant Crystal') && attacker.named('Dialga-Origin')) ||
-        (attacker.hasItem('Adamant Orb') && attacker.named('Dialga'))) &&
+    else if (((attacker.hasItem('Adamant Orb') && attacker.named('Dialga')) &&
         move.hasType('Steel', 'Dragon')) ||
-        (((attacker.hasItem('Lustrous Orb') &&
-            attacker.named('Palkia')) ||
-            (attacker.hasItem('Lustrous Globe') && attacker.named('Palkia-Origin'))) &&
+        ((attacker.hasItem('Lustrous Orb') && attacker.named('Palkia')) &&
             move.hasType('Water', 'Dragon')) ||
-        (((attacker.hasItem('Griseous Orb') || attacker.hasItem('Griseous Core')) &&
-            (attacker.named('Giratina-Origin') || attacker.named('Giratina'))) &&
+        ((attacker.hasItem('Griseous Orb') && attacker.named('Giratina')) &&
             move.hasType('Ghost', 'Dragon')) ||
         (attacker.hasItem('Vile Vial') &&
             attacker.named('Venomicon-Epilogue') &&

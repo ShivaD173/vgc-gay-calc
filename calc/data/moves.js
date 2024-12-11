@@ -4125,9 +4125,7 @@ var LGPE_MOVES = [
     'Sparkly Swirl',
     'Zippy Zap',
     'Floaty Fall',
-    'Pika Papow',
     'Splishy Splash',
-    'Veevee Volley',
 ];
 try {
     for (var LGPE_MOVES_1 = __values(LGPE_MOVES), LGPE_MOVES_1_1 = LGPE_MOVES_1.next(); !LGPE_MOVES_1_1.done; LGPE_MOVES_1_1 = LGPE_MOVES_1.next()) {
