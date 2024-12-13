@@ -753,6 +753,9 @@ function buildDescription(description, attacker, defender) {
     if (description.isFlowerGiftAttacker) {
         output += 'with an ally\'s Flower Gift ';
     }
+    if (description.isSteelySpiritAttacker) {
+        output += 'with an ally\'s Steely Spirit ';
+    }
     if (description.isBattery) {
         output += 'Battery boosted ';
     }

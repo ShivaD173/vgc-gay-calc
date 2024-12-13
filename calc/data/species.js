@@ -9006,6 +9006,7 @@ var SV_PATCH = {
     Dunsparce: { nfe: true },
     Duraludon: { nfe: true },
     Girafarig: { nfe: true },
+    Kitsunoh: { bs: { at: 117, sp: 128 } },
     Primeape: { nfe: true },
     Tauros: { otherFormes: ['Tauros-Paldea-Aqua', 'Tauros-Paldea-Blaze', 'Tauros-Paldea-Combat'] },
     Wooper: { otherFormes: ['Wooper-Paldea'] },
@@ -9138,7 +9139,7 @@ var SV_PATCH = {
     },
     Chuggalong: {
         types: ['Dragon', 'Poison'],
-        bs: { hp: 45, at: 43, df: 117, sa: 120, sd: 110, sp: 115 },
+        bs: { hp: 45, at: 43, df: 117, sa: 120, sd: 110, sp: 108 },
         weightkg: 201.6,
         abilities: { 0: 'Armor Tail' }
     },

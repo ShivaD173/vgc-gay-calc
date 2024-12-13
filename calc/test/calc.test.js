@@ -239,10 +239,53 @@ describe('calc', function () {
         });
         (0, helper_1.inGens)(6, 9, function (_a) {
             var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
+            test("Flying Press (gen ".concat(gen, ")"), function () {
+                var attacker = Pokemon('Hawlucha');
+                var flyingPress = Move('Flying Press');
+                var result = calculate(attacker, Pokemon('Cacturne'), flyingPress);
+                if (gen === 6) {
+                    expect(result.range()).toEqual([484, 576]);
+                    expect(result.desc()).toBe('0 Atk Hawlucha Flying Press vs. 0 HP / 0 Def Cacturne: 484-576 (172.2 - 204.9%) -- guaranteed OHKO');
+                }
+                else {
+                    expect(result.range()).toEqual([612, 720]);
+                    expect(result.desc()).toBe('0 Atk Hawlucha Flying Press vs. 0 HP / 0 Def Cacturne: 612-720 (217.7 - 256.2%) -- guaranteed OHKO');
+                }
+                var result2 = calculate(attacker, Pokemon('Spiritomb'), flyingPress);
+                expect(result2.range()).toEqual([0, 0]);
+                var scrappyAttacker = Pokemon('Hawlucha', { 'ability': 'Scrappy' });
+                var ringTargetSpiritomb = Pokemon('Spiritomb', { 'item': 'Ring Target' });
+                var result3 = calculate(attacker, ringTargetSpiritomb, flyingPress);
+                var result4 = calculate(scrappyAttacker, Pokemon('Spiritomb'), flyingPress);
+                if (gen === 6) {
+                    expect(result3.range()).toEqual([152, 180]);
+                    expect(result4.range()).toEqual([152, 180]);
+                }
+                else {
+                    expect(result3.range()).toEqual([188, 224]);
+                    expect(result4.range()).toEqual([188, 224]);
+                }
+            });
+        });
+        (0, helper_1.inGens)(6, 9, function (_a) {
+            var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
             test("Thousand Arrows and Ring Target Should negate damage nullfiers (gen ".concat(gen, ")"), function () {
                 var result = calculate(Pokemon('Zygarde'), Pokemon('Swellow'), Move('Thousand Arrows'));
                 expect(result.range()).toEqual([147, 174]);
                 expect(result.desc()).toBe('0 Atk Zygarde Thousand Arrows vs. 0 HP / 0 Def Swellow: 147-174 (56.3 - 66.6%) -- guaranteed 2HKO');
+            });
+        });
+        (0, helper_1.inGens)(5, 9, function (_a) {
+            var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
+            test("Ring Target should negate type nullfiers (gen ".concat(gen, ")"), function () {
+                var attacker = Pokemon('Mew');
+                var defender = Pokemon('Skarmory', { 'item': 'Ring Target' });
+                var result = calculate(attacker, defender, Move('Sludge Bomb'));
+                expect(result.range()).toEqual([87, 103]);
+                expect(result.desc()).toBe('0 SpA Mew Sludge Bomb vs. 0 HP / 0 SpD Skarmory: 87-103 (32.1 - 38%) -- 94.6% chance to 3HKO');
+                var result2 = calculate(attacker, defender, Move('Earth Power'));
+                expect(result2.range()).toEqual([174, 206]);
+                expect(result2.desc()).toBe('0 SpA Mew Earth Power vs. 0 HP / 0 SpD Skarmory: 174-206 (64.2 - 76%) -- guaranteed 2HKO');
             });
         });
         describe('IVs are shown if applicable', function () {
@@ -403,6 +446,19 @@ describe('calc', function () {
                     [92, 96, 96, 96, 96, 100, 100, 100, 104, 104, 104, 104, 108, 108, 108, 112],
                 ]);
                 expect(result.desc()).toBe('252 Atk Parental Bond Kangaskhan-Mega Crunch vs. 0 HP / 0 Def Shadow Shield Lunala: 280-334 (67.4 - 80.4%) -- approx. 2HKO');
+            });
+        });
+        (0, helper_1.inGens)(6, 9, function (_a) {
+            var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
+            test('Knock Off vs. Klutz', function () {
+                var weavile = Pokemon('Weavile');
+                var audino = Pokemon('Audino', { ability: 'Klutz', item: 'Leftovers' });
+                var audinoMega = Pokemon('Audino', { ability: 'Klutz', item: 'Audinite' });
+                var knockoff = Move('Knock Off');
+                var result = calculate(weavile, audino, knockoff);
+                expect(result.desc()).toBe('0 Atk Weavile Knock Off (97.5 BP) vs. 0 HP / 0 Def Audino: 139-165 (40 - 47.5%) -- guaranteed 3HKO');
+                var result2 = calculate(weavile, audinoMega, knockoff);
+                expect(result2.desc()).toBe('0 Atk Weavile Knock Off vs. 0 HP / 0 Def Audino: 93-111 (26.8 - 31.9%) -- guaranteed 4HKO');
             });
         });
         (0, helper_1.inGens)(5, 9, function (_a) {
@@ -579,6 +635,41 @@ describe('calc', function () {
                 var result = calculate(chansey, mew, seismicToss, field);
                 expect(result.damage).toBe(90);
                 expect(result.desc()).toBe('Lvl 90 Chansey Seismic Toss vs. Lvl 30 0 HP 0 IVs Mew: 90-90 (90 - 90%) -- guaranteed OHKO after sandstorm damage and burn damage');
+            });
+        });
+        (0, helper_1.inGens)(4, 9, function (_a) {
+            var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move, Field = _a.Field;
+            test("Mold Breaker does not disable abilities that don't affect direct damage (gen ".concat(gen, ")"), function () {
+                var attacker = Pokemon('Rampardos', {
+                    ability: 'Mold Breaker'
+                });
+                var defender = Pokemon('Blastoise', {
+                    ability: 'Rain Dish'
+                });
+                var field = Field({
+                    weather: 'Rain'
+                });
+                var move = Move('Stone Edge');
+                var result = calculate(attacker, defender, move, field);
+                expect(result.defender.ability).toBe('Rain Dish');
+                expect(result.desc()).toBe('0 Atk Rampardos Stone Edge vs. 0 HP / 0 Def Blastoise: 168-198 (56.1 - 66.2%) -- guaranteed 2HKO after Rain Dish recovery');
+            });
+        });
+        (0, helper_1.inGens)(8, 9, function (_a) {
+            var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move, Field = _a.Field;
+            test('Steely Spirit should boost Steel-type moves as a field effect.', function () {
+                var pokemon = Pokemon('Perrserker', {
+                    ability: 'Battle Armor'
+                });
+                var move = Move('Iron Head');
+                var result = calculate(pokemon, pokemon, move);
+                expect(result.desc()).toBe('0 Atk Perrserker Iron Head vs. 0 HP / 0 Def Perrserker: 46-55 (16.3 - 19.5%) -- possible 6HKO');
+                var field = Field({ attackerSide: { isSteelySpirit: true } });
+                result = calculate(pokemon, pokemon, move, field);
+                expect(result.desc()).toBe('0 Atk Perrserker with an ally\'s Steely Spirit Iron Head vs. 0 HP / 0 Def Perrserker: 70-83 (24.9 - 29.5%) -- 99.9% chance to 4HKO');
+                pokemon.ability = 'Steely Spirit';
+                result = calculate(pokemon, pokemon, move, field);
+                expect(result.desc()).toBe('0 Atk Steely Spirit Perrserker with an ally\'s Steely Spirit Iron Head vs. 0 HP / 0 Def Perrserker: 105-124 (37.3 - 44.1%) -- guaranteed 3HKO');
             });
         });
     });
@@ -943,7 +1034,7 @@ describe('calc', function () {
                 var silvally = Pokemon('Silvally-Dark', { item: 'Dark Memory' });
                 var knockoff = Move('Knock Off');
                 var result = calculate(sawk, silvally, knockoff);
-                expect(result.desc()).toBe('252 Atk Mold Breaker Sawk Knock Off vs. 0 HP / 0 Def Silvally-Dark: 36-43 (10.8 - 12.9%) -- possible 8HKO');
+                expect(result.desc()).toBe('252 Atk Sawk Knock Off vs. 0 HP / 0 Def Silvally-Dark: 36-43 (10.8 - 12.9%) -- possible 8HKO');
             });
             test('-ate Abilities', function () {
                 var sylveon = Pokemon('Sylveon', { ability: 'Pixilate', evs: { spa: 252 } });
@@ -1151,6 +1242,53 @@ describe('calc', function () {
                     var result = calculate(Pokemon('Deoxys-Attack', { evs: { spa: 44 } }), Pokemon('Blissey', { nature: 'Calm', evs: { hp: 252, spd: 252 } }), Move('Psycho Boost'));
                     expect(result.kochance().chance).toBeLessThan(0.005);
                     expect(result.kochance().text).toBe('0.1% chance to 4HKO');
+                });
+            });
+        });
+        describe('Some moves should break screens before doing damage', function () {
+            (0, helper_1.inGens)(3, 9, function (_a) {
+                var calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move, Field = _a.Field;
+                test('Brick Break should break screens', function () {
+                    var pokemon = Pokemon('Mew');
+                    var brickBreak = Move('Brick Break');
+                    var otherMove = Move('Vital Throw', { overrides: { basePower: 75 } });
+                    var field = Field({ defenderSide: { isReflect: true } });
+                    var brickBreakResult = calculate(pokemon, pokemon, brickBreak, field);
+                    expect(brickBreakResult.field.defenderSide.isReflect).toBe(false);
+                    var otherMoveResult = calculate(pokemon, pokemon, otherMove, field);
+                    expect(otherMoveResult.field.defenderSide.isReflect).toBe(true);
+                    expect(brickBreakResult.range()[0]).toBeGreaterThan(otherMoveResult.range()[0]);
+                    expect(brickBreakResult.range()[1]).toBeGreaterThan(otherMoveResult.range()[1]);
+                });
+            });
+            (0, helper_1.inGens)(7, 9, function (_a) {
+                var calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move, Field = _a.Field;
+                test('Psychic Fangs should break screens', function () {
+                    var pokemon = Pokemon('Mew');
+                    var psychicFangs = Move('Psychic Fangs');
+                    var otherMove = Move('Zen Headbutt', { overrides: { basePower: 75 } });
+                    var field = Field({ defenderSide: { isReflect: true } });
+                    var psychicFangsResult = calculate(pokemon, pokemon, psychicFangs, field);
+                    expect(psychicFangsResult.field.defenderSide.isReflect).toBe(false);
+                    var otherMoveResult = calculate(pokemon, pokemon, otherMove, field);
+                    expect(otherMoveResult.field.defenderSide.isReflect).toBe(true);
+                    expect(psychicFangsResult.range()[0]).toBeGreaterThan(otherMoveResult.range()[0]);
+                    expect(psychicFangsResult.range()[1]).toBeGreaterThan(otherMoveResult.range()[1]);
+                });
+            });
+            (0, helper_1.inGen)(9, function (_a) {
+                var calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move, Field = _a.Field;
+                test('Raging Bull should break screens', function () {
+                    var pokemon = Pokemon('Tauros-Paldea-Aqua');
+                    var ragingBull = Move('Raging Bull');
+                    var otherMove = Move('Waterfall', { overrides: { basePower: 90 } });
+                    var field = Field({ defenderSide: { isReflect: true } });
+                    var ragingBullResult = calculate(pokemon, pokemon, ragingBull, field);
+                    expect(ragingBullResult.field.defenderSide.isReflect).toBe(false);
+                    var otherMoveResult = calculate(pokemon, pokemon, otherMove, field);
+                    expect(otherMoveResult.field.defenderSide.isReflect).toBe(true);
+                    expect(ragingBullResult.range()[0]).toBeGreaterThan(otherMoveResult.range()[0]);
+                    expect(ragingBullResult.range()[1]).toBeGreaterThan(otherMoveResult.range()[1]);
                 });
             });
         });

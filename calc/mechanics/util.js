@@ -173,14 +173,11 @@ function getFinalSpeed(gen, pokemon, field, side) {
 }
 exports.getFinalSpeed = getFinalSpeed;
 function getMoveEffectiveness(gen, move, type, isGhostRevealed, isGravity, isRingTarget, isDauntless) {
-    if ((isRingTarget || isGhostRevealed) && type === 'Ghost' && move.hasType('Normal', 'Fighting')) {
+    if (isGhostRevealed && type === 'Ghost' && move.hasType('Normal', 'Fighting')) {
         return 1;
     }
-    else if ((isRingTarget || isGravity) && type === 'Flying' && move.hasType('Ground')) {
+    else if (isGravity && type === 'Flying' && move.hasType('Ground')) {
         return 1;
-    }
-    else if ((isDauntless) && type === 'Dark' && move.hasType('Psychic')) {
-        return 0.5;
     }
     else if (move.named('Freeze-Dry') && type === 'Water') {
         return 2;
@@ -188,24 +185,27 @@ function getMoveEffectiveness(gen, move, type, isGhostRevealed, isGravity, isRin
     else if (move.named('Sky Uppercut') && type === 'Flying') {
         return 2;
     }
-    else if (move.named('Flying Press')) {
-        return (gen.types.get('fighting').effectiveness[type] *
-            gen.types.get('flying').effectiveness[type]);
-    }
-    else if (move.named('Freezing Glare')) {
-        return (gen.types.get('psychic').effectiveness[type] *
-            gen.types.get('ice').effectiveness[type]);
-    }
-    else if (move.named('Thunderous Kick')) {
-        return (gen.types.get('fighting').effectiveness[type] *
-            gen.types.get('electric').effectiveness[type]);
-    }
-    else if (move.named('Fiery Wrath')) {
-        return (gen.types.get('dark').effectiveness[type] *
-            gen.types.get('fire').effectiveness[type]);
-    }
     else {
-        return gen.types.get((0, util_1.toID)(move.type)).effectiveness[type];
+        var effectiveness = gen.types.get((0, util_1.toID)(move.type)).effectiveness[type];
+        if (effectiveness === 0 && isRingTarget) {
+            effectiveness = 1;
+        }
+        else if (effectiveness === 0 && isDauntless) {
+            effectiveness = 0.5;
+        }
+        if (move.named('Flying Press')) {
+            effectiveness *= gen.types.get('flying').effectiveness[type];
+        }
+        else if (move.named('Freezing Glare')) {
+            effectiveness *= gen.types.get('ice').effectiveness[type];
+        }
+        else if (move.named('Thunderous Kick')) {
+            effectiveness *= gen.types.get('electric').effectiveness[type];
+        }
+        else if (move.named('Fiery Wrath')) {
+            effectiveness *= gen.types.get('fire').effectiveness[type];
+        }
+        return effectiveness;
     }
 }
 exports.getMoveEffectiveness = getMoveEffectiveness;
@@ -248,6 +248,7 @@ function checkItem(pokemon, magicRoomActive) {
         return;
     if (pokemon.hasAbility('Klutz') && !EV_ITEMS.includes(pokemon.item) ||
         magicRoomActive) {
+        pokemon.disabledItem = pokemon.item;
         pokemon.item = '';
     }
 }
