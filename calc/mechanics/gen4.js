@@ -235,7 +235,8 @@ function calculateDPP(gen, attacker, defender, move, field) {
             numAttacks = move.hits;
         }
         var usedItems = [false, false];
-        var _loop_1 = function (times) {
+        var damageMatrix = [damage];
+        for (var times = 1; times < numAttacks; times++) {
             usedItems = (0, util_1.checkMultihitBoost)(gen, attacker, defender, move, field, desc, usedItems[0], usedItems[1]);
             var newBasePower = calculateBasePowerDPP(gen, attacker, defender, move, field, desc);
             newBasePower = calculateBPModsDPP(attacker, defender, move, field, desc, newBasePower);
@@ -246,10 +247,10 @@ function calculateDPP(gen, attacker, defender, move, field) {
                 desc.isBurned = true;
             }
             baseDamage_1 = calculateFinalModsDPP(baseDamage_1, attacker, move, field, desc, isCritical);
-            var damageMultiplier = 0;
-            result.damage = result.damage.map(function (affectedAmount) {
+            var damageArray = [];
+            for (var i = 0; i < 16; i++) {
                 var newFinalDamage = 0;
-                newFinalDamage = Math.floor((baseDamage_1 * (85 + damageMultiplier)) / 100);
+                newFinalDamage = Math.floor((baseDamage_1 * (85 + i)) / 100);
                 newFinalDamage = Math.floor(newFinalDamage * stabMod);
                 newFinalDamage = Math.floor(newFinalDamage * type1Effectiveness);
                 newFinalDamage = Math.floor(newFinalDamage * type2Effectiveness);
@@ -257,13 +258,11 @@ function calculateDPP(gen, attacker, defender, move, field) {
                 newFinalDamage = Math.floor(newFinalDamage * ebeltMod);
                 newFinalDamage = Math.floor(newFinalDamage * tintedMod);
                 newFinalDamage = Math.max(1, newFinalDamage);
-                damageMultiplier++;
-                return affectedAmount + newFinalDamage;
-            });
-        };
-        for (var times = 1; times < numAttacks; times++) {
-            _loop_1(times);
+                damageArray[i] = newFinalDamage;
+            }
+            damageMatrix[times] = damageArray;
         }
+        result.damage = damageMatrix;
         desc.defenseBoost = origDefBoost;
         desc.attackBoost = origAtkBoost;
     }

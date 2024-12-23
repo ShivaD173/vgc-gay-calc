@@ -271,7 +271,7 @@ $(".ability").bind("keyup change", function () {
 		$(this).closest(".poke-info").find(moveSelector).find(".move-hits").val(moveHits);
 	}
 
-	var TOGGLE_ABILITIES = ['Flash Fire', 'Intimidate', 'Minus', 'Plus', 'Slow Start', 'Unburden', 'Stakeout', 'Teraform Zero', 'Il Vaticano', 'Homophobia', 'The Flock'];
+	var TOGGLE_ABILITIES = ['Flash Fire', 'Intimidate', 'Minus', 'Plus', 'Slow Start', 'Unburden', 'Stakeout', 'Teraform Zero'];
 
 	if (TOGGLE_ABILITIES.indexOf(ability) >= 0) {
 		$(this).closest(".poke-info").find(".abilityToggle").show();
@@ -1464,8 +1464,7 @@ $(".notation").change(function () {
 });
 
 function clearField() {
-	$("#singles-format").prop("checked", false);
-	$("#doubles-format").prop("checked", true);
+	$("#singles-format").prop("checked", true);
 	$("#clear").prop("checked", true);
 	$("#gscClear").prop("checked", true);
 	$("#gravity").prop("checked", false);
@@ -1520,6 +1519,10 @@ function getSetOptions(sets) {
 	var setOptions = [];
 	for (var i = 0; i < pokeNames.length; i++) {
 		var pokeName = pokeNames[i];
+		setOptions.push({
+			pokemon: pokeName,
+			text: pokeName
+		});
 		if ($("#randoms").prop("checked")) {
 			if (pokeName in randdex) {
 				if (gen >= 8) {
@@ -1547,10 +1550,6 @@ function getSetOptions(sets) {
 			}
 		} else {
 			if (pokeName in setdex) {
-				setOptions.push({
-					pokemon: pokeName,
-					text: pokeName
-				});
 				var setNames = Object.keys(setdex[pokeName]);
 				for (var j = 0; j < setNames.length; j++) {
 					var setName = setNames[j];
@@ -1563,13 +1562,13 @@ function getSetOptions(sets) {
 						nickname: setdex[pokeName][setName].nickname || ""
 					});
 				}
-				setOptions.push({
-					pokemon: pokeName,
-					set: "Blank Set",
-					text: pokeName + " (Blank Set)",
-					id: pokeName + " (Blank Set)"
-				});
 			}
+			setOptions.push({
+				pokemon: pokeName,
+				set: "Blank Set",
+				text: pokeName + " (Blank Set)",
+				id: pokeName + " (Blank Set)"
+			});
 		}
 	}
 	return setOptions;
@@ -1769,10 +1768,10 @@ $(document).ready(function () {
 	$("#gen" + g).change();
 	$("#percentage").prop("checked", true);
 	$("#percentage").change();
-	$("#doubles-format").prop("checked", true);
-	$("#doubles-format").change();
-	$("#default-level-50").prop("checked", true);
-	$("#default-level-50").change();
+	$("#singles-format").prop("checked", true);
+	$("#singles-format").change();
+	$("#default-level-100").prop("checked", true);
+	$("#default-level-100").change();
 	loadDefaultLists();
 	$(".move-selector").select2({
 		dropdownAutoWidth: true,
