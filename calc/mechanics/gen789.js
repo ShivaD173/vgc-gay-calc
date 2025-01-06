@@ -899,10 +899,6 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         }
         desc.attackerAbility = attacker.ability;
     }
-    if (attacker.hasAbility('Transphobia') && defender.gender === 'N') {
-        bpMods.push(5325);
-        desc.attackerAbility = attacker.ability;
-    }
     if (!move.isMax && hasAteAbilityTypeChange) {
         bpMods.push(4915);
     }
@@ -920,13 +916,13 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
     }
     if ((attacker.hasAbility('Reckless') && (move.recoil || move.hasCrashDamage || move.mindBlownRecoil || move.named('Explosion', 'Self-Destruct', 'Misty Explosion'))) ||
         (attacker.hasAbility('Transphobia') && defender.gender === 'N') ||
+        (attacker.hasAbility('Iron Fist') && move.flags.punch) ||
         (attacker.hasAbility('Homophobia') && attacker.abilityOn)) {
         bpMods.push(5325);
         desc.attackerAbility = attacker.ability;
     }
-    if ((attacker.hasAbility('Iron Fist') && move.flags.punch) ||
-        (attacker.hasAbility('Il Vaticano')) && attacker.abilityOn) {
-        bpMods.push(5734);
+    if (attacker.hasAbility('Il Vaticano') && attacker.abilityOn) {
+        bpMods.push(6144);
         desc.attackerAbility = attacker.ability;
     }
     if ((attacker.hasAbility('Mystic Fist') && move.flags.punch)) {
