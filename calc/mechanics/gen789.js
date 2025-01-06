@@ -307,7 +307,7 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
         (move.named('Synchronoise') && !defender.hasType(attacker.types[0]) &&
             (!attacker.types[1] || !defender.hasType(attacker.types[1]))) ||
         (move.named('Dream Eater') &&
-            (!(defender.hasStatus('slp') || defender.hasAbility('Comatose')))) ||
+            (!(defender.hasStatus('slp') || attacker.hasStatus('slp') || defender.hasAbility('Comatose')))) ||
         (move.named('Steel Roller') && !field.terrain) ||
         (move.named('Poltergeist') && (!defender.item || (0, util_2.isQPActive)(defender, field)))) {
         return result;
