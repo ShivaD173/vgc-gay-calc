@@ -140,10 +140,7 @@ function getFinalSpeed(gen, pokemon, field, side) {
         (pokemon.hasAbility('Sand Rush') && weather === 'Sand') ||
         (pokemon.hasAbility('Swift Swim') && weather.includes('Rain')) ||
         (pokemon.hasAbility('Slush Rush') && ['Hail', 'Snow'].includes(weather)) ||
-        (pokemon.hasAbility('Arctic Rush') && ['Rain', 'Hail', 'Snow'].includes(weather)) ||
-        (pokemon.hasAbility('Surge Surfer') && terrain === 'Electric') ||
-        (pokemon.hasAbility('Lawn Surfer') && terrain === 'Grassy') ||
-        (pokemon.hasAbility('Mind Surfer') && terrain === 'Psychic')) {
+        (pokemon.hasAbility('Surge Surfer') && terrain === 'Electric')) {
         speedMods.push(8192);
     }
     else if (pokemon.hasAbility('Quick Feet') && pokemon.status) {
@@ -172,7 +169,7 @@ function getFinalSpeed(gen, pokemon, field, side) {
     return Math.max(0, speed);
 }
 exports.getFinalSpeed = getFinalSpeed;
-function getMoveEffectiveness(gen, move, type, isGhostRevealed, isGravity, isRingTarget, isDauntless) {
+function getMoveEffectiveness(gen, move, type, isGhostRevealed, isGravity, isRingTarget) {
     if (isGhostRevealed && type === 'Ghost' && move.hasType('Normal', 'Fighting')) {
         return 1;
     }
@@ -182,28 +179,13 @@ function getMoveEffectiveness(gen, move, type, isGhostRevealed, isGravity, isRin
     else if (move.named('Freeze-Dry') && type === 'Water') {
         return 2;
     }
-    else if (move.named('Sky Uppercut') && type === 'Flying') {
-        return 2;
-    }
     else {
         var effectiveness = gen.types.get((0, util_1.toID)(move.type)).effectiveness[type];
         if (effectiveness === 0 && isRingTarget) {
             effectiveness = 1;
         }
-        else if (effectiveness === 0 && isDauntless) {
-            effectiveness = 0.5;
-        }
         if (move.named('Flying Press')) {
             effectiveness *= gen.types.get('flying').effectiveness[type];
-        }
-        else if (move.named('Freezing Glare')) {
-            effectiveness *= gen.types.get('ice').effectiveness[type];
-        }
-        else if (move.named('Thunderous Kick')) {
-            effectiveness *= gen.types.get('electric').effectiveness[type];
-        }
-        else if (move.named('Fiery Wrath')) {
-            effectiveness *= gen.types.get('fire').effectiveness[type];
         }
         return effectiveness;
     }
@@ -264,8 +246,7 @@ function checkIntimidate(gen, source, target) {
     var blocked = target.hasAbility('Clear Body', 'White Smoke', 'Hyper Cutter', 'Full Metal Body') ||
         (gen.num >= 8 && target.hasAbility('Inner Focus', 'Own Tempo', 'Oblivious', 'Scrappy')) ||
         target.hasItem('Clear Amulet');
-    if ((source.hasAbility('Intimidate') || source.hasAbility('The Flock')) &&
-        source.abilityOn && !blocked) {
+    if (source.hasAbility('Intimidate') && source.abilityOn && !blocked) {
         if (target.hasAbility('Contrary', 'Defiant', 'Guard Dog')) {
             target.boosts.atk = Math.min(6, target.boosts.atk + 1);
         }
@@ -335,7 +316,7 @@ function checkEmbody(source, gen) {
 }
 exports.checkEmbody = checkEmbody;
 function checkInfiltrator(pokemon, affectedSide) {
-    if (pokemon.hasAbility('Infiltrator', 'Loophole')) {
+    if (pokemon.hasAbility('Infiltrator')) {
         affectedSide.isReflect = false;
         affectedSide.isLightScreen = false;
         affectedSide.isAuroraVeil = false;
@@ -418,7 +399,7 @@ function checkMultihitBoost(gen, attacker, defender, move, field, desc, attacker
     if (defender.hasAbility('Sand Spit')) {
         field.weather = 'Sand';
     }
-    if (defender.hasAbility('Stamina', 'Cotton Down')) {
+    if (defender.hasAbility('Stamina')) {
         if (attacker.hasAbility('Unaware')) {
             desc.attackerAbility = attacker.ability;
         }
@@ -426,13 +407,6 @@ function checkMultihitBoost(gen, attacker, defender, move, field, desc, attacker
             defender.boosts.def = Math.min(defender.boosts.def + 1, 6);
             defender.stats.def = getModifiedStat(defender.rawStats.def, defender.boosts.def, gen);
             desc.defenderAbility = defender.ability;
-        }
-    }
-    else if (defender.ability === 'Machine Learning') {
-        if (desc.defenderAbility !== 'Machine Learning') {
-            var defStat = move.category === 'Physical' ? 'def' : 'spd';
-            defender.boosts[defStat] = Math.min(6, defender.boosts[defStat] + 1);
-            desc.defenderAbility = 'Machine Learning';
         }
     }
     else if (defender.hasAbility('Water Compaction') && move.hasType('Water')) {
@@ -603,7 +577,7 @@ function getStabMod(pokemon, move, desc) {
     if (pokemon.hasOriginalType(move.type)) {
         stabMod += 2048;
     }
-    else if (pokemon.hasAbility('Protean', 'Libero', 'Ancestor') && !pokemon.teraType) {
+    else if (pokemon.hasAbility('Protean', 'Libero') && !pokemon.teraType) {
         stabMod += 2048;
         desc.attackerAbility = pokemon.ability;
     }
