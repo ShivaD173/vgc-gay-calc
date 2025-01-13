@@ -235,8 +235,7 @@ function calculateDPP(gen, attacker, defender, move, field) {
             numAttacks = move.hits;
         }
         var usedItems = [false, false];
-        var damageMatrix = [damage];
-        for (var times = 1; times < numAttacks; times++) {
+        var _loop_1 = function (times) {
             usedItems = (0, util_1.checkMultihitBoost)(gen, attacker, defender, move, field, desc, usedItems[0], usedItems[1]);
             var newBasePower = calculateBasePowerDPP(gen, attacker, defender, move, field, desc);
             newBasePower = calculateBPModsDPP(attacker, defender, move, field, desc, newBasePower);
@@ -247,10 +246,10 @@ function calculateDPP(gen, attacker, defender, move, field) {
                 desc.isBurned = true;
             }
             baseDamage_1 = calculateFinalModsDPP(baseDamage_1, attacker, move, field, desc, isCritical);
-            var damageArray = [];
-            for (var i = 0; i < 16; i++) {
+            var damageMultiplier = 0;
+            result.damage = result.damage.map(function (affectedAmount) {
                 var newFinalDamage = 0;
-                newFinalDamage = Math.floor((baseDamage_1 * (85 + i)) / 100);
+                newFinalDamage = Math.floor((baseDamage_1 * (85 + damageMultiplier)) / 100);
                 newFinalDamage = Math.floor(newFinalDamage * stabMod);
                 newFinalDamage = Math.floor(newFinalDamage * type1Effectiveness);
                 newFinalDamage = Math.floor(newFinalDamage * type2Effectiveness);
@@ -258,11 +257,13 @@ function calculateDPP(gen, attacker, defender, move, field) {
                 newFinalDamage = Math.floor(newFinalDamage * ebeltMod);
                 newFinalDamage = Math.floor(newFinalDamage * tintedMod);
                 newFinalDamage = Math.max(1, newFinalDamage);
-                damageArray[i] = newFinalDamage;
-            }
-            damageMatrix[times] = damageArray;
+                damageMultiplier++;
+                return affectedAmount + newFinalDamage;
+            });
+        };
+        for (var times = 1; times < numAttacks; times++) {
+            _loop_1(times);
         }
-        result.damage = damageMatrix;
         desc.defenseBoost = origDefBoost;
         desc.attackBoost = origAtkBoost;
     }

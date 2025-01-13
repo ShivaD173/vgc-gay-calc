@@ -47,8 +47,8 @@ function calculateRBYGSC(gen, attacker, defender, move, field) {
     }
     if (move.name === 'Pain Split') {
         var average = Math.floor((attacker.curHP() + defender.curHP()) / 2);
-        var damage_1 = Math.max(0, defender.curHP() - average);
-        result.damage = damage_1;
+        var damage = Math.max(0, defender.curHP() - average);
+        result.damage = damage;
         return result;
     }
     if (gen.num === 1) {
@@ -224,43 +224,46 @@ function calculateRBYGSC(gen, attacker, defender, move, field) {
         result.damage = baseDamage;
         return result;
     }
-    var damage = [];
+    result.damage = [];
     for (var i = 217; i <= 255; i++) {
         if (gen.num === 2) {
-            damage[i - 217] = Math.max(1, Math.floor((baseDamage * i) / 255));
+            result.damage[i - 217] = Math.max(1, Math.floor((baseDamage * i) / 255));
         }
         else {
             if (baseDamage === 1) {
-                damage[i - 217] = 1;
+                result.damage[i - 217] = 1;
             }
             else {
-                damage[i - 217] = Math.floor((baseDamage * i) / 255);
+                result.damage[i - 217] = Math.floor((baseDamage * i) / 255);
             }
         }
     }
-    result.damage = damage;
     if (move.hits > 1) {
-        var damageMatrix = [damage];
-        for (var times = 1; times < move.hits; times++) {
-            var damage_2 = [];
-            for (var damageMultiplier = 217; damageMultiplier <= 255; damageMultiplier++) {
-                var newFinalDamage = 0;
-                if (gen.num === 2) {
-                    newFinalDamage = Math.max(1, Math.floor((baseDamage * damageMultiplier) / 255));
-                }
-                else {
-                    if (baseDamage === 1) {
-                        newFinalDamage = 1;
+        var _loop_1 = function (times) {
+            var damageMultiplier = 217;
+            result.damage = result.damage.map(function (affectedAmount) {
+                if (times) {
+                    var newFinalDamage = 0;
+                    if (gen.num === 2) {
+                        newFinalDamage = Math.max(1, Math.floor((baseDamage * damageMultiplier) / 255));
                     }
                     else {
-                        newFinalDamage = Math.floor((baseDamage * damageMultiplier) / 255);
+                        if (baseDamage === 1) {
+                            newFinalDamage = 1;
+                        }
+                        else {
+                            newFinalDamage = Math.floor((baseDamage * damageMultiplier) / 255);
+                        }
                     }
+                    damageMultiplier++;
+                    return affectedAmount + newFinalDamage;
                 }
-                damage_2[damageMultiplier - 217] = newFinalDamage;
-            }
-            damageMatrix[times] = damage_2;
+                return affectedAmount;
+            });
+        };
+        for (var times = 0; times < move.hits; times++) {
+            _loop_1(times);
         }
-        result.damage = damageMatrix;
     }
     return result;
 }
