@@ -139,7 +139,7 @@ exports.Stats = new ((function () {
         var hp = HP[hpType];
         if (!hp)
             return undefined;
-        return gen.num === 2 ? exports.Stats.DVsToIVs(hp.dvs) : hp.ivs;
+        return gen.num === 2 ? exports.Stats.DVsToIVs(hp.dvs) : {};
     };
     class_1.prototype.getHiddenPower = function (gen, ivs) {
         var tr = function (num, bits) {

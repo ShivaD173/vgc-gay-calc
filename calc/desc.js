@@ -122,7 +122,7 @@ function getRecoil(gen, attacker, defender, move, damage, notation) {
             minRecoilDamage = toDisplay(notation, Math.min(min, defender.curHP()) * mod, attacker.maxHP(), 100);
             maxRecoilDamage = toDisplay(notation, Math.min(max, defender.curHP()) * mod, attacker.maxHP(), 100);
         }
-        if (!attacker.hasAbility('Rock Head')) {
+        if (!attacker.hasAbility('Rock Head') && !attacker.hasAbility('Sinnohan Grit')) {
             recoil = [minRecoilDamage, maxRecoilDamage];
             text = "".concat(minRecoilDamage, " - ").concat(maxRecoilDamage).concat(notation, " recoil damage");
         }
@@ -412,6 +412,10 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
             damage += Math.floor(defender.maxHP() / 16);
             texts.push('Rain Dish recovery');
         }
+        else if (defender.hasAbility('Molten Down')) {
+            damage -= Math.floor(defender.maxHP() / 8);
+            texts.push(defender.ability + ' damage');
+        }
     }
     else if (field.hasWeather('Sand')) {
         if (!defender.hasType('Rock', 'Ground', 'Steel') &&
@@ -504,12 +508,18 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
     }
     else if (defender.hasStatus('brn')) {
         if (defender.hasAbility('Heatproof')) {
-            damage -= Math.floor(defender.maxHP() / (gen.num > 6 ? 32 : 16));
+            damage -= Math.floor(defender.maxHP() / (gen.num > 6 ? 64 : 16));
             texts.push('reduced burn damage');
         }
         else if (!defender.hasAbility('Magic Guard')) {
             damage -= Math.floor(defender.maxHP() / (gen.num === 1 || gen.num > 6 ? 16 : 8));
             texts.push('burn damage');
+        }
+    }
+    else if (defender.hasStatus('frz')) {
+        if (!defender.hasAbility('Magic Guard')) {
+            damage -= Math.floor(defender.maxHP() / (gen.num === 1 || gen.num > 6 ? 16 : 8));
+            texts.push('frostbite damage');
         }
     }
     else if ((defender.hasStatus('slp') || defender.hasAbility('Comatose')) &&
@@ -750,6 +760,9 @@ function buildDescription(description, attacker, defender) {
     output = appendIfSet(output, description.rivalry);
     if (description.isBurned) {
         output += 'burned ';
+    }
+    if (description.isFrozen) {
+        output += 'frostbitten ';
     }
     if (description.alliesFainted) {
         output += Math.min(5, description.alliesFainted) +

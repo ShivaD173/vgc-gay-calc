@@ -6,9 +6,9 @@
     <title>Pok&eacute;mon Damage Calculator</title>
     <link rel="icon" type="image/x-icon" href="./img/favicon.png">
     <link type="text/css" rel="stylesheet" href="./js/vendor/select2/select2.css" />
-    <link type="text/css" rel="stylesheet" href="./css/main.css?cf6351ab" />
+    <link type="text/css" rel="stylesheet" href="./css/main.css?45391044" />
     <link type="text/css" rel="stylesheet" href="./css/vendor/bootstrap.css" />
-    <link type="text/css" rel="stylesheet" href="./css/dark-theme.css" id="dark-theme-styles">
+    <link type="text/css" rel="stylesheet" href="./css/dark-theme.css?a6d3706f" id="dark-theme-styles">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-26211653-3"></script>
     <script>
@@ -25,13 +25,10 @@
     </script>
     <!-- Immediately loads the dark theme in order to reduce FOIT -->
     <script>
-        /*
-        * localStorage will only store strings
-        * This means that if it has the value 'false',
-        * It will be truey and incorrectly cause the
-        * dark theme to load.
-        */
-        if (localStorage.getItem('darkTheme') !== 'true') {
+        // localStorage will only store strings
+        // This means that if it has the value 'false',
+        // It will be truthy.
+        if ((localStorage.getItem('darkTheme') || '' + window.matchMedia('(prefers-color-scheme: dark)').matches) === 'false') {
             document.getElementById('dark-theme-styles').disabled = true;
         }
     </script>
@@ -39,19 +36,17 @@
 
 <body class="dark-theme">
 
-<nav><div class="header"><div class="header-inner">
-    <ul class="nav">
-        <li><a class="button nav-first" href="//pokemonshowdown.com"><img src="./img/pokemonshowdownbeta.png" alt="Pok&eacute;mon Showdown! (beta)" /> Home</a></li>
-        <li><a class="button" href="//dex.pokemonshowdown.com">Pok&eacute;dex</a></li>
-        <li><a class="button" href="//replay.pokemonshowdown.com/">Replays</a></li>
-        <li><a class="button" href="//pokemonshowdown.com/ladder/">Ladder</a></li>
-        <li><a class="button nav-last" href="//pokemonshowdown.com/forums/">Forum</a></li>
-    </ul>
-    <ul class="nav nav-play">
+<header>
+    <div class="nav-wrapper"><ul class="nav">
+        <li><a class="button nav-first" href="//pokemonshowdown.com/"><img src="./img/pokemonshowdownbeta.png" srcset="./img/pokemonshowdownbeta.png 1x, ./img/pokemonshowdownbeta@2x.png 2x" alt="Pok&eacute;mon Showdown" width="146" height="44" /> Home</a></li>
+        <li><a class="button" href="//pokemonshowdown.com/dex/">Pok&eacute;dex</a></li>
+        <li><a class="button" href="//replay.pokemonshowdown.com/">Replay</a></li>
+        <li><a class="button purplebutton" href="//smogon.com/dex/" target="_blank">Strategy</a></li>
+        <li><a class="button nav-last purplebutton" href="//smogon.com/forums/" target="_blank">Forum</a></li>
         <li><a class="button greenbutton nav-first nav-last" href="//play.pokemonshowdown.com/">Play</a></li>
-    </ul>
-    <div style="clear:both"></div>
-</div></div></nav>
+    </ul></div>
+</header>
+
 <div class="wrapper">
 
     <span class="title-text main-title-text">Pok&eacute;mon Damage Calculator</span>
@@ -1605,8 +1600,8 @@
         function require() { return exports };
     </script>
     <script type="text/javascript" src="./calc/util.js?51463f0d"></script>
-    <script type="text/javascript" src="./calc/stats.js?a9e37d1a"></script>
-    <script type="text/javascript" src="./calc/data/species.js?7ea84f88"></script>
+    <script type="text/javascript" src="./calc/stats.js?ccbde445"></script>
+    <script type="text/javascript" src="./calc/data/species.js?f913196f"></script>
     <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen9randombattle.js?"></script>
     <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen9randomdoublesbattle.js?"></script>
     <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen9babyrandombattle.js?"></script>
@@ -1622,26 +1617,26 @@
     <script type="text/javascript" src="https://data.pkmn.cc/randbats/js/gen1randombattle.js?"></script>
     <script type="text/javascript" src="./calc/data/types.js?a641e10b"></script>
     <script type="text/javascript" src="./calc/data/natures.js?28612810"></script>
-    <script type="text/javascript" src="./calc/data/abilities.js?95a9afd4"></script>
-    <script type="text/javascript" src="./calc/data/moves.js?3061c8e6"></script>
-    <script type="text/javascript" src="./calc/data/items.js?a2dbf914"></script>
+    <script type="text/javascript" src="./calc/data/abilities.js?37a757dd"></script>
+    <script type="text/javascript" src="./calc/data/moves.js?be9f8c20"></script>
+    <script type="text/javascript" src="./calc/data/items.js?eef025b7"></script>
     <script type="text/javascript" src="./calc/data/index.js?abecbd82"></script>
     <script type="text/javascript" src="./calc/move.js?47eecc2d"></script>
     <script type="text/javascript" src="./calc/pokemon.js?1e459e1e"></script>
     <script type="text/javascript" src="./calc/field.js?0e15ef04"></script>
     <script type="text/javascript" src="./calc/items.js?067e42a4"></script>
-    <script type="text/javascript" src="./calc/mechanics/util.js?fb2ae906"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen789.js?98ff0e1a"></script>
+    <script type="text/javascript" src="./calc/mechanics/util.js?b5121abe"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen789.js?54d072d5"></script>
     <script type="text/javascript" src="./calc/mechanics/gen56.js?aec1e77a"></script>
     <script type="text/javascript" src="./calc/mechanics/gen4.js?d8362ce4"></script>
     <script type="text/javascript" src="./calc/mechanics/gen3.js?a33d6ca1"></script>
     <script type="text/javascript" src="./calc/mechanics/gen12.js?fafc47a4"></script>
     <script type="text/javascript" src="./calc/calc.js?40a2d9b1"></script>
-    <script type="text/javascript" src="./calc/desc.js?c6aa371f"></script>
+    <script type="text/javascript" src="./calc/desc.js?40a647f1"></script>
     <script type="text/javascript" src="./calc/result.js?9b18f412"></script>
     <script type="text/javascript" src="./calc/adaptable.js?92e49194"></script>
     <script type="text/javascript" src="./calc/index.js?0b1745b9"></script>
-    <script type="text/javascript" src="./js/shared_controls.js?1d6d5eb7"></script>
+    <script type="text/javascript" src="./js/shared_controls.js?0f0d4bf1"></script>
     <script type="text/javascript" src="./js/index_randoms_controls.js?05595456"></script>
     <script type="text/javascript" src="./js/moveset_import.js?f2dc7681"></script>
 </div>
@@ -1650,8 +1645,13 @@
     <ul><li><a href="https://github.com/smogon/damage-calc/contributors" class="links-lighten" target="_blank">Contributors</a></li>
     <li><a href="https://www.smogon.com/forums/threads/pok%C3%A9mon-showdown-damage-calculator.3593546/" class="links-lighten" target="_blank">Bug Reports</a></li>
     <li><a href="https://github.com/smogon/damage-calc" class="links-lighten" target="_blank">GitHub repository</a></li></ul>
-    <button type="button" id="dark-theme-toggle"></button>
-    <script type="text/javascript" src="./js/dark-theme-toggle.js?123be3bd"></script>
+
+    <select id="dark-theme-toggle">
+        <option value="">Auto dark theme</option>
+        <option value="false">Light theme</option>
+        <option value="true">Dark theme</option>
+    </select>
+    <script type="text/javascript" src="./js/dark-theme-toggle.js?9034c9bd"></script>
 </div>
 
 </body>
