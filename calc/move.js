@@ -77,7 +77,7 @@ var Move = (function () {
         if (((_b = data.self) === null || _b === void 0 ? void 0 : _b.boosts) && data.self.boosts[stat] && data.self.boosts[stat] < 0) {
             this.dropsStats = Math.abs(data.self.boosts[stat]);
         }
-        this.timesUsed = (this.dropsStats && options.timesUsed) || 1;
+        this.timesUsed = options.timesUsed || 1;
         this.secondaries = data.secondaries;
         this.target = data.target || 'any';
         this.recoil = data.recoil;

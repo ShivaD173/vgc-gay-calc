@@ -33,7 +33,6 @@ export interface RawDesc {
     isCritical?: boolean;
     isLightScreen?: boolean;
     isBurned?: boolean;
-    isFrozen?: boolean;
     isProtected?: boolean;
     isReflect?: boolean;
     isBattery?: boolean;
@@ -59,7 +58,7 @@ export declare function getRecoil(gen: Generation, attacker: Pokemon, defender: 
     recoil: number | [number, number];
     text: string;
 };
-export declare function getKOChance(gen: Generation, attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damage: Damage, err?: boolean): {
+export declare function getKOChance(gen: Generation, attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, err?: boolean): {
     chance: number | undefined;
     n: number;
     text: string;

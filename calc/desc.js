@@ -23,9 +23,7 @@ var util_2 = require("./mechanics/util");
 function display(gen, attacker, defender, move, field, damage, rawDesc, notation, err) {
     if (notation === void 0) { notation = '%'; }
     if (err === void 0) { err = true; }
-    var _a = __read((0, result_1.damageRange)(damage), 2), minDamage = _a[0], maxDamage = _a[1];
-    var min = (typeof minDamage === 'number' ? minDamage : minDamage[0] + minDamage[1]);
-    var max = (typeof maxDamage === 'number' ? maxDamage : maxDamage[0] + maxDamage[1]);
+    var _a = __read((0, result_1.damageRange)(damage), 2), min = _a[0], max = _a[1];
     var minDisplay = toDisplay(notation, min, defender.maxHP());
     var maxDisplay = toDisplay(notation, max, defender.maxHP());
     var desc = buildDescription(rawDesc, attacker, defender);
@@ -38,9 +36,7 @@ function display(gen, attacker, defender, move, field, damage, rawDesc, notation
 exports.display = display;
 function displayMove(gen, attacker, defender, move, damage, notation) {
     if (notation === void 0) { notation = '%'; }
-    var _a = __read((0, result_1.damageRange)(damage), 2), minDamage = _a[0], maxDamage = _a[1];
-    var min = (typeof minDamage === 'number' ? minDamage : minDamage[0] + minDamage[1]);
-    var max = (typeof maxDamage === 'number' ? maxDamage : maxDamage[0] + maxDamage[1]);
+    var _a = __read((0, result_1.damageRange)(damage), 2), min = _a[0], max = _a[1];
     var minDisplay = toDisplay(notation, min, defender.maxHP());
     var maxDisplay = toDisplay(notation, max, defender.maxHP());
     var recoveryText = getRecovery(gen, attacker, defender, move, damage, notation).text;
@@ -50,37 +46,51 @@ function displayMove(gen, attacker, defender, move, damage, notation) {
 }
 exports.displayMove = displayMove;
 function getRecovery(gen, attacker, defender, move, damage, notation) {
+    var _a, _b;
     if (notation === void 0) { notation = '%'; }
-    var _a = __read((0, result_1.damageRange)(damage), 2), minDamage = _a[0], maxDamage = _a[1];
-    var minD = typeof minDamage === 'number' ? [minDamage] : minDamage;
-    var maxD = typeof maxDamage === 'number' ? [maxDamage] : maxDamage;
+    var _c = __read((0, result_1.damageRange)(damage), 2), minDamage = _c[0], maxDamage = _c[1];
+    var minD;
+    var maxD;
+    if (move.timesUsed && move.timesUsed > 1) {
+        _a = __read((0, result_1.multiDamageRange)(damage), 2), minD = _a[0], maxD = _a[1];
+    }
+    else {
+        minD = [minDamage];
+        maxD = [maxDamage];
+    }
     var recovery = [0, 0];
     var text = '';
     var ignoresShellBell = gen.num === 3 && move.named('Doom Desire', 'Future Sight');
     if (attacker.hasItem('Shell Bell') && !ignoresShellBell) {
-        var max = Math.round(defender.maxHP() / 8);
         for (var i = 0; i < minD.length; i++) {
-            recovery[0] += Math.min(Math.round(minD[i] * move.hits / 8), max);
-            recovery[1] += Math.min(Math.round(maxD[i] * move.hits / 8), max);
+            recovery[0] += minD[i] > 0 ? Math.max(Math.round(minD[i] / 8), 1) : 0;
+            recovery[1] += maxD[i] > 0 ? Math.max(Math.round(maxD[i] / 8), 1) : 0;
         }
+        var maxHealing = Math.round(defender.curHP() / 8);
+        recovery[0] = Math.min(recovery[0], maxHealing);
+        recovery[1] = Math.min(recovery[1], maxHealing);
     }
     if (move.named('G-Max Finale')) {
-        recovery[0] = recovery[1] = Math.round(attacker.maxHP() / 6);
+        recovery[0] += Math.round(attacker.maxHP() / 6);
+        recovery[1] += Math.round(attacker.maxHP() / 6);
     }
     if (move.named('Pain Split')) {
         var average = Math.floor((attacker.curHP() + defender.curHP()) / 2);
         recovery[0] = recovery[1] = average - attacker.curHP();
     }
     if (move.drain) {
+        if (attacker.hasAbility('Parental Bond') || move.hits > 1) {
+            _b = __read((0, result_1.multiDamageRange)(damage), 2), minD = _b[0], maxD = _b[1];
+        }
         var percentHealed = move.drain[0] / move.drain[1];
-        var max = Math.round(defender.maxHP() * percentHealed);
+        var max = Math.round(defender.curHP() * percentHealed);
         for (var i = 0; i < minD.length; i++) {
             var range = [minD[i], maxD[i]];
             for (var j in recovery) {
-                var drained = Math.round(range[j] * percentHealed);
+                var drained = Math.max(Math.round(range[j] * percentHealed), 1);
                 if (attacker.hasItem('Big Root'))
                     drained = Math.trunc(drained * 5324 / 4096);
-                recovery[j] += Math.min(drained * move.hits, max);
+                recovery[j] += Math.min(drained, max);
             }
         }
     }
@@ -95,9 +105,7 @@ function getRecovery(gen, attacker, defender, move, damage, notation) {
 exports.getRecovery = getRecovery;
 function getRecoil(gen, attacker, defender, move, damage, notation) {
     if (notation === void 0) { notation = '%'; }
-    var _a = __read((0, result_1.damageRange)(damage), 2), minDamage = _a[0], maxDamage = _a[1];
-    var min = (typeof minDamage === 'number' ? minDamage : minDamage[0] + minDamage[1]) * move.hits;
-    var max = (typeof maxDamage === 'number' ? maxDamage : maxDamage[0] + maxDamage[1]) * move.hits;
+    var _a = __read((0, result_1.damageRange)(damage), 2), min = _a[0], max = _a[1];
     var recoil = [0, 0];
     var text = '';
     var damageOverflow = min > defender.curHP() || max > defender.curHP();
@@ -114,7 +122,7 @@ function getRecoil(gen, attacker, defender, move, damage, notation) {
             minRecoilDamage = toDisplay(notation, Math.min(min, defender.curHP()) * mod, attacker.maxHP(), 100);
             maxRecoilDamage = toDisplay(notation, Math.min(max, defender.curHP()) * mod, attacker.maxHP(), 100);
         }
-        if (!attacker.hasAbility('Rock Head') && !attacker.hasAbility('Sinnohan Grit')) {
+        if (!attacker.hasAbility('Rock Head')) {
             recoil = [minRecoilDamage, maxRecoilDamage];
             text = "".concat(minRecoilDamage, " - ").concat(maxRecoilDamage).concat(notation, " recoil damage");
         }
@@ -174,9 +182,9 @@ function getRecoil(gen, attacker, defender, move, damage, notation) {
     return { recoil: recoil, text: text };
 }
 exports.getRecoil = getRecoil;
-function getKOChance(gen, attacker, defender, move, field, damage, err) {
+function getKOChance(gen, attacker, defender, move, field, damageObj, err) {
     if (err === void 0) { err = true; }
-    damage = combine(damage);
+    var _a = __read(combine(damageObj), 2), damage = _a[0], approximate = _a[1];
     if (isNaN(damage[0])) {
         (0, util_1.error)(err, 'damage[0] must be a number.');
         return { chance: 0, n: 0, text: '' };
@@ -196,7 +204,7 @@ function getKOChance(gen, attacker, defender, move, field, damage, err) {
     var eot = getEndOfTurn(gen, attacker, defender, move, field);
     var toxicCounter = defender.hasStatus('tox') && !defender.hasAbility('Magic Guard', 'Poison Heal')
         ? defender.toxicCounter : 0;
-    var qualifier = move.hits > 1 ? 'approx. ' : '';
+    var qualifier = approximate ? 'approx. ' : '';
     var hazardsText = hazards.texts.length > 0
         ? ' after ' + serializeText(hazards.texts)
         : '';
@@ -222,8 +230,7 @@ function getKOChance(gen, attacker, defender, move, field, damage, err) {
         }
         else if (chanceWithoutEot === 1) {
             chance = chanceWithoutEot;
-            if (qualifier === '')
-                text += 'guaranteed ';
+            text = 'guaranteed ';
             text += "OHKO".concat(hazardsText);
         }
         else if (chanceWithoutEot > 0) {
@@ -244,8 +251,7 @@ function getKOChance(gen, attacker, defender, move, field, damage, err) {
         else if (chanceWithoutEot === 0) {
             chance = chanceWithEot;
             if (chanceWithEot === 1) {
-                if (qualifier === '')
-                    text += 'guaranteed ';
+                text = 'guaranteed ';
                 text += "".concat(KOTurnText).concat(afterText);
             }
             else if (chanceWithEot > 0) {
@@ -259,9 +265,6 @@ function getKOChance(gen, attacker, defender, move, field, damage, err) {
         var chanceWithEot = computeKOChance(damage, defender.curHP() - hazards.damage, eot.damage, 1, 1, defender.maxHP(), toxicCounter);
         if (chance + chanceWithEot > 0)
             return KOChance(chance, chanceWithEot, 1);
-        if (damage.length === 256) {
-            qualifier = 'approx. ';
-        }
         for (var i = 2; i <= 4; i++) {
             var chance_1 = computeKOChance(damage, defender.curHP() - hazards.damage, eot.damage, i, 1, defender.maxHP(), toxicCounter);
             if (chance_1 > 0)
@@ -297,23 +300,44 @@ function getKOChance(gen, attacker, defender, move, field, damage, err) {
 exports.getKOChance = getKOChance;
 function combine(damage) {
     if (typeof damage === 'number')
-        return [damage];
-    if (damage.length > 2) {
-        if (damage[0] > damage[damage.length - 1])
-            damage = damage.slice().sort();
-        return damage;
+        return [[damage], false];
+    if (damage.length >= 16 && typeof damage[0] === 'number') {
+        return [damage, false];
     }
     if (typeof damage[0] === 'number' && typeof damage[1] === 'number') {
-        return [damage[0] + damage[1]];
+        return [[damage[0] + damage[1]], false];
+    }
+    function reduce(dist, scaleValue) {
+        var new_length = dist.length / scaleValue;
+        var reduced = [];
+        reduced[0] = dist[0];
+        reduced[new_length - 1] = dist[dist.length - 1];
+        for (var i = 1; i < new_length - 1; i++) {
+            reduced[i] = dist[Math.round(i * scaleValue + scaleValue / 2)];
+        }
+        return reduced;
+    }
+    function combineTwo(dist1, dist2) {
+        var combined = dist1.flatMap(function (val1) { return dist2.map(function (val2) { return val1 + val2; }); }).sort(function (a, b) { return a - b; });
+        return combined;
+    }
+    function combineDistributions(dists) {
+        var combined = [0];
+        var numRolls = dists[0].length;
+        var numAccuracy = (numRolls === 16 && dists.length === 3) ? 3 : 2;
+        var approximate = false;
+        for (var i = 0; i < dists.length; i++) {
+            var distribution = dists[i];
+            combined = combineTwo(combined, distribution);
+            if (i >= numAccuracy) {
+                combined = reduce(combined, distribution.length);
+                approximate = true;
+            }
+        }
+        return [combined, approximate];
     }
     var d = damage;
-    var combined = [];
-    for (var i = 0; i < d[0].length; i++) {
-        for (var j = 0; j < d[1].length; j++) {
-            combined.push(d[0][i] + d[1][j]);
-        }
-    }
-    return combined.sort();
+    return combineDistributions(d);
 }
 var TRAPPING = [
     'Bind', 'Clamp', 'Fire Spin', 'Infestation', 'Magma Storm', 'Sand Tomb',
@@ -368,13 +392,18 @@ function getHazards(gen, defender, defenderSide) {
 function getEndOfTurn(gen, attacker, defender, move, field) {
     var damage = 0;
     var texts = [];
+    var loseItem = move.named('Knock Off') && !defender.hasAbility('Sticky Hold');
+    var healBlock = move.named('Psychic Noise') &&
+        !(attacker.hasAbility('Sheer Force') ||
+            defender.hasItem('Covert Cloak') ||
+            defender.hasAbility('Shield Dust', 'Aroma Veil'));
     if (field.hasWeather('Sun', 'Harsh Sunshine')) {
         if (defender.hasAbility('Dry Skin', 'Solar Power')) {
             damage -= Math.floor(defender.maxHP() / 8);
             texts.push(defender.ability + ' damage');
         }
     }
-    else if (field.hasWeather('Rain', 'Heavy Rain')) {
+    else if (field.hasWeather('Rain', 'Heavy Rain') && !healBlock) {
         if (defender.hasAbility('Dry Skin')) {
             damage += Math.floor(defender.maxHP() / 8);
             texts.push('Dry Skin recovery');
@@ -382,10 +411,6 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
         else if (defender.hasAbility('Rain Dish')) {
             damage += Math.floor(defender.maxHP() / 16);
             texts.push('Rain Dish recovery');
-        }
-        else if (defender.hasAbility('Molten Down')) {
-            damage -= Math.floor(defender.maxHP() / 8);
-            texts.push(defender.ability + ' damage');
         }
     }
     else if (field.hasWeather('Sand')) {
@@ -397,7 +422,7 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
         }
     }
     else if (field.hasWeather('Hail', 'Snow')) {
-        if (defender.hasAbility('Ice Body')) {
+        if (defender.hasAbility('Ice Body') && !healBlock) {
             damage += Math.floor(defender.maxHP() / 16);
             texts.push('Ice Body recovery');
         }
@@ -409,15 +434,16 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
             texts.push('hail damage');
         }
     }
-    var loseItem = move.named('Knock Off') && !defender.hasAbility('Sticky Hold');
-    if (defender.hasItem('Leftovers') && !loseItem) {
+    if (defender.hasItem('Leftovers') && !loseItem && !healBlock) {
         damage += Math.floor(defender.maxHP() / 16);
         texts.push('Leftovers recovery');
     }
     else if (defender.hasItem('Black Sludge') && !loseItem) {
         if (defender.hasType('Poison')) {
-            damage += Math.floor(defender.maxHP() / 16);
-            texts.push('Black Sludge recovery');
+            if (!healBlock) {
+                damage += Math.floor(defender.maxHP() / 16);
+                texts.push('Black Sludge recovery');
+            }
         }
         else if (!defender.hasAbility('Magic Guard', 'Klutz')) {
             damage -= Math.floor(defender.maxHP() / 8);
@@ -442,21 +468,23 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
             damage -= recovery;
             texts.push('Liquid Ooze damage');
         }
-        else {
+        else if (!healBlock) {
             damage += recovery;
             texts.push('Leech Seed recovery');
         }
     }
     if (field.hasTerrain('Grassy')) {
-        if ((0, util_2.isGrounded)(defender, field)) {
+        if ((0, util_2.isGrounded)(defender, field) && !healBlock) {
             damage += Math.floor(defender.maxHP() / 16);
             texts.push('Grassy Terrain recovery');
         }
     }
     if (defender.hasStatus('psn')) {
         if (defender.hasAbility('Poison Heal')) {
-            damage += Math.floor(defender.maxHP() / 8);
-            texts.push('Poison Heal');
+            if (!healBlock) {
+                damage += Math.floor(defender.maxHP() / 8);
+                texts.push('Poison Heal');
+            }
         }
         else if (!defender.hasAbility('Magic Guard')) {
             damage -= Math.floor(defender.maxHP() / (gen.num === 1 ? 16 : 8));
@@ -465,8 +493,10 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
     }
     else if (defender.hasStatus('tox')) {
         if (defender.hasAbility('Poison Heal')) {
-            damage += Math.floor(defender.maxHP() / 8);
-            texts.push('Poison Heal');
+            if (!healBlock) {
+                damage += Math.floor(defender.maxHP() / 8);
+                texts.push('Poison Heal');
+            }
         }
         else if (!defender.hasAbility('Magic Guard')) {
             texts.push('toxic damage');
@@ -474,7 +504,7 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
     }
     else if (defender.hasStatus('brn')) {
         if (defender.hasAbility('Heatproof')) {
-            damage -= Math.floor(defender.maxHP() / (gen.num > 6 ? 64 : 16));
+            damage -= Math.floor(defender.maxHP() / (gen.num > 6 ? 32 : 16));
             texts.push('reduced burn damage');
         }
         else if (!defender.hasAbility('Magic Guard')) {
@@ -482,14 +512,8 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
             texts.push('burn damage');
         }
     }
-    else if (defender.hasStatus('frz')) {
-        if (!defender.hasAbility('Magic Guard')) {
-            damage -= Math.floor(defender.maxHP() / (gen.num === 1 || gen.num > 6 ? 16 : 8));
-            texts.push('frostbite damage');
-        }
-    }
     else if ((defender.hasStatus('slp') || defender.hasAbility('Comatose')) &&
-        attacker.hasAbility('isBadDreams') &&
+        attacker.hasAbility('Bad Dreams') &&
         !defender.hasAbility('Magic Guard')) {
         damage -= Math.floor(defender.maxHP() / 8);
         texts.push('Bad Dreams');
@@ -726,9 +750,6 @@ function buildDescription(description, attacker, defender) {
     output = appendIfSet(output, description.rivalry);
     if (description.isBurned) {
         output += 'burned ';
-    }
-    if (description.isFrozen) {
-        output += 'frostbitten ';
     }
     if (description.alliesFainted) {
         output += Math.min(5, description.alliesFainted) +
