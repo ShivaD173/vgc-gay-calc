@@ -3,12 +3,13 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
     <title>Pok&eacute;mon Damage Calculator</title>
-	 <link rel="icon" type="image/x-icon" href="./img/favicon.png">
+    <link rel="icon" type="image/x-icon" href="./img/favicon.png">
     <link type="text/css" rel="stylesheet" href="./js/vendor/select2/select2.css" />
-    <link type="text/css" rel="stylesheet" href="./css/main.css?45391044" />
+    <link type="text/css" rel="stylesheet" href="./css/main.css?" />
     <link type="text/css" rel="stylesheet" href="./css/vendor/bootstrap.css" />
-    <link type="text/css" rel="stylesheet" href="./css/dark-theme.css?a6d3706f" id="dark-theme-styles">
+    <link type="text/css" rel="stylesheet" href="./css/dark-theme.css?" id="dark-theme-styles">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-26211653-3"></script>
     <script>
@@ -36,17 +37,7 @@
 
 <body class="dark-theme">
 
-<header>
-    <div class="nav-wrapper"><ul class="nav">
-        <li><a class="button nav-first" href="//pokemonshowdown.com/"><img src="./img/pokemonshowdownbeta.png" srcset="./img/pokemonshowdownbeta.png 1x, ./img/pokemonshowdownbeta@2x.png 2x" alt="Pok&eacute;mon Showdown" width="146" height="44" /> Home</a></li>
-        <li><a class="button" href="//pokemonshowdown.com/dex/">Pok&eacute;dex</a></li>
-        <li><a class="button" href="//replay.pokemonshowdown.com/">Replay</a></li>
-        <li><a class="button purplebutton" href="//smogon.com/dex/" target="_blank">Strategy</a></li>
-        <li><a class="button nav-last purplebutton" href="//smogon.com/forums/" target="_blank">Forum</a></li>
-        <li><a class="button greenbutton nav-first nav-last" href="//play.pokemonshowdown.com/">Play</a></li>
-    </ul></div>
-</header>
-
+<!-- START WRAPPER -->
 <div class="wrapper">
 
     <span class="title-text main-title-text">Pok&eacute;mon Damage Calculator</span>
@@ -528,14 +519,6 @@
                     </select>
                 </div>
             </div>
-            <div class="info-group gen-specific g9">
-                <div class="left" title="Has this Pok&eacute;mon been cured with Salt Cure?">
-                    <div hidden id="selectRevealInstruction">Has this Pok&eacute;mon been cured with Salt Cure?</div>
-                    <input aria-describedby="selectRevealInstruction" class="visually-hidden saltcure calc-trigger" type="checkbox" id="cureL" />
-                    <label class="btn btn-xxwide" for="cureL">Salt Cure</label>
-                </div>
-                <br />
-            </div>
             <div class="info-group">
                 <label for="currentHpL1">Current HP</label>
                 <input class="current-hp calc-trigger" id="currentHpL1" value="341" inputmode="decimal" />/<span class="max-hp">341</span> (
@@ -708,31 +691,31 @@
                     <label class="btn btn-right" for="doubles-format">Doubles</label>
                 </div>
                 <div aria-labelledby="selectDefaultLevelInstruction" role="radiogroup" style="margin: auto auto 5px;" title="Select the default level.">
-                   <span class="visually-hidden" id="selectDefaultLevelInstruction">Select the default level.</span>
-                   <input class="visually-hidden calc-trigger" type="radio" name="defaultLevel" value="100" id="default-level-100" />
-                   <label class="btn btn-wide btn-left" for="default-level-100">Level 100</label>
-                   <input class="visually-hidden calc-trigger gen-specific g4 g5 g6 g7 g8 g9" type="radio" name="defaultLevel" value="50" id="default-level-50" />
-                   <label class="btn btn-wide btn-mid gen-specific g4 g5 g6 g7 g8 g9" for="default-level-50">Level 50</label>
-                   <input class="visually-hidden calc-trigger" type="radio" name="defaultLevel" value="5" id="default-level-5" />
-                   <label class="btn btn-wide btn-right" for="default-level-5">Level 5</label>
+                    <span class="visually-hidden" id="selectDefaultLevelInstruction">Select the default level.</span>
+                    <input class="visually-hidden calc-trigger" type="radio" name="defaultLevel" value="100" id="default-level-100" />
+                    <label class="btn btn-wide btn-left" for="default-level-100">Level 100</label>
+                    <input class="visually-hidden calc-trigger gen-specific g4 g5 g6 g7 g8 g9" type="radio" name="defaultLevel" value="50" id="default-level-50" />
+                    <label class="btn btn-wide btn-mid gen-specific g4 g5 g6 g7 g8 g9" for="default-level-50">Level 50</label>
+                    <input class="visually-hidden calc-trigger" type="radio" name="defaultLevel" value="5" id="default-level-5" />
+                    <label class="btn btn-wide btn-right" for="default-level-5">Level 5</label>
                </div>
                 <div aria-labelledby="selectTerrainInstruction" class="gen-specific g6 g7 g8 g9" role="group" title="Select the current terrain.">
                     <span class="visually-hidden" id="selectTerrainInstruction">Select the current terrain.</span>
-                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Electric" id="electric" /><label class="btn btn-xxxwide btn-left" for="electric">Electric Terrain</label>
-                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Grassy" id="grassy" /><label class="btn btn-xxxwide btn-mid" for="grassy">Grassy Terrain</label>
-                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Misty" id="misty" /><label class="btn btn-xxxwide btn-right" for="misty">Misty Terrain</label>
-                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Psychic" id="psychic" /><label class="btn btn-xxxwide btn-mid" for="psychic">Psychic Terrain</label>
+                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Electric" id="electric" /><label class="btn btn-left" for="electric">Electric</label>
+                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Grassy" id="grassy" /><label class="btn btn-mid" for="grassy">Grassy</label>
+                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Misty" id="misty" /><label class="btn btn-mid" for="misty">Misty</label>
+                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Psychic" id="psychic" /><label class="btn btn-xxxwide btn-right" for="psychic">Psychic Terrain</label>
                 </div>
                 <div aria-labelledby="selectRuinInstruction" class="gen-specific g9 format-specific doubles" role="group" style="margin: 5px auto auto;" title="Select the ruin abilities from other Pok&eacute;mon on the field.">
                     <span class="visually-hidden" id="selectRuinInstruction">Select the active Ruin abilities from other Poke&eacute;mon on the field.</span>
                     <input class="visually-hidden calc-trigger" type="checkbox" name="ruin" value="Beads" id="beads" />
-                    <label class="btn btn-xxxwide btn-left" for="beads">Beads of Ruin</label>
+                    <label class="btn btn-left" for="beads">Beads</label>
                     <input class="visually-hidden calc-trigger" type="checkbox" name="ruin" value="Tablets" id="tablets" />
-                    <label class="btn btn-xxxwide btn-mid" for="tablets">Tablets of Ruin</label>
+                    <label class="btn btn-mid" for="tablets">Tablets</label>
                     <input class="visually-hidden calc-trigger" type="checkbox" name="ruin" value="Sword" id="sword" />
-                    <label class="btn btn-xxxwide btn-right" for="sword">Sword of Ruin</label>
+                    <label class="btn btn-mid" for="sword">Sword</label>
                     <input class="visually-hidden calc-trigger" type="checkbox" name="ruin" value="Vessel" id="vessel" />
-                    <label class="btn btn-xxxwide btn-mid" for="vessel">Vessel of Ruin</label>
+                    <label class="btn btn-xxxwide btn-right" for="vessel">Vessel of Ruin</label>
                 </div>
                 <hr class="gen-specific g6 g7 g8 g9" />
                 <div aria-labelledby="selectWeatherInstruction" role="radiogroup">
@@ -917,6 +900,17 @@
                             <td><div class="right" title="Has this Pok&eacute;mon been affected by Leech Seed?">
                                 <input aria-describedby="selectLeechSeedInstruction" class="visually-hidden calc-trigger" type="checkbox" id="leechSeedR" />
                                 <label class="btn btn-wide" for="leechSeedR">Leech Seed</label>
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td><div class="left" title="Has this Pok&eacute;mon been affected by Salt Cure?">
+                                <div hidden id="selectSaltCureInstruction">Has this Pok&eacute;mon been affected by Salt Cure?</div>
+                                <input aria-describedby="selectSaltCureInstruction" class="visually-hidden calc-trigger" type="checkbox" id="saltCureL" />
+                                <label class="btn btn-wide" for="saltCureL">Salt Cure</label>
+                            </div></td>
+                            <td><div class="right" title="Has this Pok&eacute;mon been affected by Salt Cure?">
+                                <input aria-describedby="selectSaltCureInstruction" class="visually-hidden calc-trigger" type="checkbox" id="saltCureR" />
+                                <label class="btn btn-wide" for="saltCureR">Salt Cure</label>
                             </div></td>
                         </tr>
                         <tr class="gen-specific g2 g3 g4 g5 g6 g7 g8 g9">
@@ -1448,14 +1442,6 @@
                     </select>
                 </div>
             </div>
-            <div class="info-group gen-specific g9">
-                <div class="left" title="Has this Pok&eacute;mon been cured with Salt Cure?">
-                    <div hidden id="selectRevealInstruction">Has this Pok&eacute;mon been cured with Salt Cure?</div>
-                    <input aria-describedby="selectRevealInstruction" class="visually-hidden saltcure calc-trigger" type="checkbox" id="cureR" />
-                    <label class="btn btn-xxwide" for="cureR">Salt Cure</label>
-                </div>
-                <br />
-            </div>
             <div class="info-group">
                 <label for="currentHpR1">Current HP</label>
                 <input class="current-hp calc-trigger" id="currentHpR1" value="341" inputmode="decimal" />/<span class="max-hp">341</span> (
@@ -1613,9 +1599,6 @@
             </div>
         </fieldset>
     </div>
-    <script type="text/javascript">
-        var linkExtension = '.html';
-    </script>
     <script type="text/javascript" src="./js/vendor/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="./js/vendor/select2/select2.min.js"></script>
     <script type="text/javascript" src="./js/vendor/url-search-params-0.1.2.min.js"></script>
@@ -1626,47 +1609,47 @@
         var calc = exports = {};
         function require() { return exports };
     </script>
-    <script type="text/javascript" src="./calc/util.js?51463f0d"></script>
-    <script type="text/javascript" src="./calc/stats.js?ccbde445"></script>
-    <script type="text/javascript" src="./calc/data/species.js?f913196f"></script>
-    <script type="text/javascript" src="./js/data/sets/gen9.js?c2e3b167"></script>
-    <script type="text/javascript" src="./js/data/sets/gen8.js?f6f979af"></script>
-    <script type="text/javascript" src="./js/data/sets/gen7.js?2b111b61"></script>
-    <script type="text/javascript" src="./js/data/sets/gen6.js?3ed58c57"></script>
-    <script type="text/javascript" src="./js/data/sets/gen5.js?f4f38bd3"></script>
-    <script type="text/javascript" src="./js/data/sets/gen4.js?2b054e3b"></script>
-    <script type="text/javascript" src="./js/data/sets/gen3.js?d30053b0"></script>
-    <script type="text/javascript" src="./js/data/sets/gen2.js?b5f420ee"></script>
-    <script type="text/javascript" src="./js/data/sets/gen1.js?a07de967"></script>
-    <script type="text/javascript" src="./calc/data/types.js?a641e10b"></script>
-    <script type="text/javascript" src="./calc/data/natures.js?28612810"></script>
-    <script type="text/javascript" src="./calc/data/abilities.js?37a757dd"></script>
-    <script type="text/javascript" src="./calc/data/moves.js?be9f8c20"></script>
-    <script type="text/javascript" src="./calc/data/items.js?eef025b7"></script>
-    <script type="text/javascript" src="./calc/data/index.js?abecbd82"></script>
-    <script type="text/javascript" src="./calc/move.js?47eecc2d"></script>
-    <script type="text/javascript" src="./calc/pokemon.js?1e459e1e"></script>
-    <script type="text/javascript" src="./calc/field.js?0e15ef04"></script>
-    <script type="text/javascript" src="./calc/items.js?067e42a4"></script>
-    <script type="text/javascript" src="./calc/mechanics/util.js?b5121abe"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen789.js?54d072d5"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen56.js?aec1e77a"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen4.js?d8362ce4"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen3.js?a33d6ca1"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen12.js?fafc47a4"></script>
-    <script type="text/javascript" src="./calc/calc.js?40a2d9b1"></script>
-    <script type="text/javascript" src="./calc/desc.js?40a647f1"></script>
-    <script type="text/javascript" src="./calc/result.js?9b18f412"></script>
-    <script type="text/javascript" src="./calc/adaptable.js?92e49194"></script>
-    <script type="text/javascript" src="./calc/index.js?0b1745b9"></script>
-    <script type="text/javascript" src="./js/shared_controls.js?0f0d4bf1"></script>
-    <script type="text/javascript" src="./js/index_randoms_controls.js?05595456"></script>
-    <script type="text/javascript" src="./js/moveset_import.js?f2dc7681"></script>
+    <script type="text/javascript" src="./calc/util.js?"></script>
+    <script type="text/javascript" src="./calc/stats.js?"></script>
+    <script type="text/javascript" src="./calc/data/species.js?"></script>
+    <script type="text/javascript" src="./js/data/sets/gen9.js?"></script>
+    <script type="text/javascript" src="./js/data/sets/gen8.js?"></script>
+    <script type="text/javascript" src="./js/data/sets/gen7.js?"></script>
+    <script type="text/javascript" src="./js/data/sets/gen6.js?"></script>
+    <script type="text/javascript" src="./js/data/sets/gen5.js?"></script>
+    <script type="text/javascript" src="./js/data/sets/gen4.js?"></script>
+    <script type="text/javascript" src="./js/data/sets/gen3.js?"></script>
+    <script type="text/javascript" src="./js/data/sets/gen2.js?"></script>
+    <script type="text/javascript" src="./js/data/sets/gen1.js?"></script>
+    <script type="text/javascript" src="./calc/data/types.js?"></script>
+    <script type="text/javascript" src="./calc/data/natures.js?"></script>
+    <script type="text/javascript" src="./calc/data/abilities.js?"></script>
+    <script type="text/javascript" src="./calc/data/moves.js?"></script>
+    <script type="text/javascript" src="./calc/data/items.js?"></script>
+    <script type="text/javascript" src="./calc/data/index.js?"></script>
+    <script type="text/javascript" src="./calc/move.js?"></script>
+    <script type="text/javascript" src="./calc/pokemon.js?"></script>
+    <script type="text/javascript" src="./calc/field.js?"></script>
+    <script type="text/javascript" src="./calc/items.js?"></script>
+    <script type="text/javascript" src="./calc/mechanics/util.js?"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen789.js?"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen56.js?"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen4.js?"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen3.js?"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen12.js?"></script>
+    <script type="text/javascript" src="./calc/calc.js?"></script>
+    <script type="text/javascript" src="./calc/desc.js?"></script>
+    <script type="text/javascript" src="./calc/result.js?"></script>
+    <script type="text/javascript" src="./calc/adaptable.js?"></script>
+    <script type="text/javascript" src="./calc/index.js?"></script>
+    <script type="text/javascript" src="./js/shared_controls.js?"></script>
+    <script type="text/javascript" src="./js/index_randoms_controls.js?"></script>
+    <script type="text/javascript" src="./js/moveset_import.js?"></script>
 </div>
+<!-- END WRAPPER -->
 
-<div class="credits">Created by Honko, maintained by Austin and Kris, Edited by StaraptorOP
-    <ul><li><a href="https://github.com/smogon/damage-calc/contributors" class="links-lighten" target="_blank">Contributors</a></li>
-    <li><a href="73.191.22.186:8001/" class="links-lighten" target="_blank">Showdown Server</a></li>
+<div class="credits">Created by Honko; Modified by StaraptorOP, maintained by Austin, Kris, <a href="https://github.com/smogon/damage-calc/contributors" class="links-lighten" target="_blank">and others</a>.
+    <li><a href="https://staraptorshowdown.com" class="links-lighten" target="_blank">Showdown Server</a></li></ul>
     <li><a href="https://github.com/ShivaD173/damage-calc" class="links-lighten" target="_blank">GitHub repository</a></li></ul>
 
     <select id="dark-theme-toggle">
@@ -1674,7 +1657,7 @@
         <option value="false">Light theme</option>
         <option value="true">Dark theme</option>
     </select>
-    <script type="text/javascript" src="./js/dark-theme-toggle.js?9034c9bd"></script>
+    <script type="text/javascript" src="./js/dark-theme-toggle.js?"></script>
 </div>
 
 </body>

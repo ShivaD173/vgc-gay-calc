@@ -7,7 +7,6 @@ export declare namespace State {
         abilityOn?: boolean;
         isDynamaxed?: boolean;
         dynamaxLevel?: number;
-        isSaltCure?: boolean;
         alliesFainted?: number;
         boostedStat?: I.StatIDExceptHP | 'auto';
         item?: I.ItemName;
@@ -63,6 +62,7 @@ export declare namespace State {
         isLightScreen?: boolean;
         isProtected?: boolean;
         isSeeded?: boolean;
+        isSaltCured?: boolean;
         isForesight?: boolean;
         isTailwind?: boolean;
         isHelpingHand?: boolean;

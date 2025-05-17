@@ -849,6 +849,16 @@ describe('calc', function () {
                 result = calculate(pinsir, gengar, earthquake);
                 expect(result.range()).toEqual([1054, 1240]);
             });
+            test('Technicain boost should happen before boosting items', function () {
+                var scizor = Pokemon('Scizor', {
+                    item: 'Insect Plate',
+                    ability: 'Technician'
+                });
+                var chansey = Pokemon('Chansey');
+                var bugbite = Move('Bug Bite');
+                var result = calculate(scizor, chansey, bugbite);
+                expect(result.desc()).toBe('0 Atk Insect Plate Technician Scizor Bug Bite vs. 0 HP / 0 Def Chansey: 745-877 (116.2 - 136.8%) -- guaranteed OHKO');
+            });
         });
     });
     describe('Gen 5', function () {
