@@ -1220,11 +1220,11 @@ function calculateDfModsSMSSSV(gen, attacker, defender, move, field, desc, isCri
         desc.defenderAbility = defender.ability;
     }
     else if (defender.hasAbility('Sand Veil') && field.hasWeather('Sand') && hitsPhysical) {
-        dfMods.push(4915);
+        dfMods.push(5325);
         desc.defenderAbility = defender.ability;
     }
     else if (defender.hasAbility('Snow Cloak') && field.hasWeather('Snow') && !hitsPhysical) {
-        dfMods.push(4915);
+        dfMods.push(5325);
         desc.defenderAbility = defender.ability;
     }
     else if (defender.hasAbility('Arctic Rush') && field.hasWeather('Snow', 'Rain') && !hitsPhysical) {

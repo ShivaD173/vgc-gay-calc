@@ -4928,6 +4928,13 @@ var GAY_PATCH = {
     'Misty Explosion': { bp: 150 },
     'Explosion': { bp: 325 },
     'Self-Destruct': { bp: 250 },
+    'Cut': { bp: 70, type: 'Steel' },
+    'Strength': { bp: 80, type: 'Fighting', secondaries: true },
+    'Rock Climb': { bp: 85, type: 'Rock' },
+    'Expanding Force': { bp: 70 },
+    'Mega Drain': { bp: 60 },
+    'Sludge': { bp: 60 },
+    'Retaliate': { bp: 80 },
     'Skitter Smack': { bp: 80, isPunch: true },
     'Round': { bp: 70 },
     'Vise Grip': { bp: 70 },
@@ -4982,7 +4989,6 @@ var GAY_PATCH = {
     'Zing Zap': { bp: 90 },
     'Mountain Gale': { target: 'allAdjacentFoes' },
     'Storm Throw': { bp: 70 },
-    'Origin Pulse': { bp: 100 },
     'Shadow Bone': { bp: 50, multihit: 2 },
     'Twin Beam': { bp: 50 },
     'Diamond Storm': { bp: 95, category: 'Special', target: 'normal' },
@@ -4990,10 +4996,9 @@ var GAY_PATCH = {
     'Revelation Dance': { bp: 100 },
     'Volt Tackle': { bp: 130 },
     'Triple Dive': { bp: 80 },
+    'Gear Grind': { bp: 45 },
     'Ice Hammer': { bp: 110 },
     'Steamroller': { bp: 85 },
-    'Luster Purge': { bp: 75 },
-    'Mist Ball': { bp: 75 },
     'Accelerock': { bp: 60 },
     'G-Max Replenish': { bp: 65 },
     'G-Max Malodor': { bp: 80 },
@@ -5049,8 +5054,10 @@ var GAY_PATCH = {
     'Ice Rink': { bp: 0, type: 'Ice', category: 'Status' },
     'Flash Freeze': { bp: 0, type: 'Ice', category: 'Status' },
     'Slush Crush': { bp: 0, type: 'Steel', makesContact: true, category: 'Physical' },
-    'Expanding Maws': { bp: 80, type: 'Psychic', makesContact: true,
-        isBite: true, category: 'Physical' }
+    'Expanding Maws': { bp: 70, type: 'Psychic', makesContact: true,
+        isBite: true, category: 'Physical' },
+    'Platinum Buster': { bp: 40, type: 'Fighting', makesContact: true,
+        category: 'Physical', multihit: 4 }
 };
 var SV = (0, util_1.extend)(true, {}, SV_old, GAY_PATCH);
 exports.MOVES = [{}, RBY, GSC, ADV, DPP, BW, XY, SM, SS, SV];
